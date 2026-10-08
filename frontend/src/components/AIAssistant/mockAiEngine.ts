@@ -1,31 +1,64 @@
 import type { AiResponseResult } from './types';
 
 /**
- * Local mock AI response engine.
- * Matches keywords and intents locally to provide authentic, contextual responses
- * without external API dependencies or fake network calls.
+ * Grounded local AI response engine for Webkorps.
+ * It responds with company-specific facts and uses the same lead conversion paths as the website.
  */
 export function mockAiResponse(userMessage: string): AiResponseResult {
   const normalized = userMessage.toLowerCase().trim();
 
-  // 1. Services intent
   if (
-    normalized.includes('service') ||
-    normalized.includes('what do you do') ||
-    normalized.includes('offer') ||
-    normalized.includes('capabilities')
+    normalized.includes('what is webkorps') ||
+    normalized.includes('who is webkorps') ||
+    normalized.includes('about webkorps') ||
+    normalized.includes('tell me about webkorps') ||
+    normalized.includes('what does webkorps do')
   ) {
     return {
       text:
-        'Webkorps delivers end-to-end digital engineering solutions including Web Development, Mobile App Development, AI & ML Engineering, Enterprise Software, Cloud & DevOps, and E-Commerce Platforms.\n\nWhether you need to modernize legacy systems, build scalable cloud architectures, or deploy generative AI workflows, our 350+ certified engineers can help you execute quickly.',
+        'Webkorps is an enterprise digital engineering company founded in 2014. We help businesses build custom software, AI/ML solutions, web and mobile platforms, cloud systems, and product engineering teams with strong delivery governance. Our core leadership includes Chirag Agrawal (CEO & Founder) and Amul Choudhary (COO & Co-Founder).',
       actions: [
         { label: 'Explore Services', href: '#services', variant: 'primary' },
-        { label: 'Talk to Our Team', href: '#contact', variant: 'secondary' },
-      ],
+        { label: 'View Case Studies', href: '#case-studies', variant: 'secondary' }
+      ]
     };
   }
 
-  // 2. AI & ML Solutions
+  if (
+    normalized.includes('founder') ||
+    normalized.includes('ceo') ||
+    normalized.includes('coo') ||
+    normalized.includes('leadership') ||
+    normalized.includes('who leads webkorps')
+  ) {
+    return {
+      text:
+        'Webkorps is led by Chirag Agrawal as CEO & Founder and Amul Choudhary as COO & Co-Founder. The company operates from Indore, with additional offices in Pune, Bengaluru, Frisco, and Sheridan.',
+      actions: [
+        { label: 'Meet the Team', href: '#leadership', variant: 'primary' },
+        { label: 'Talk to Us', href: '#contact', variant: 'secondary' }
+      ]
+    };
+  }
+
+  if (
+    normalized.includes('service') ||
+    normalized.includes('services') ||
+    normalized.includes('what do you do') ||
+    normalized.includes('offer') ||
+    normalized.includes('capabilities') ||
+    normalized.includes('solutions')
+  ) {
+    return {
+      text:
+        'Webkorps delivers end-to-end digital engineering across custom software development, mobile app development, web development, AI & ML engineering, cloud & DevOps, enterprise integrations, and product modernization. We work across product strategy, engineering delivery, and optimization.',
+      actions: [
+        { label: 'Explore Services', href: '#services', variant: 'primary' },
+        { label: 'Book a Consultation', href: '#contact', variant: 'secondary' }
+      ]
+    };
+  }
+
   if (
     normalized.includes('ai') ||
     normalized.includes('artificial intelligence') ||
@@ -37,51 +70,106 @@ export function mockAiResponse(userMessage: string): AiResponseResult {
   ) {
     return {
       text:
-        'Yes! We specialize in custom AI and ML solutions. From fine-tuned Generative AI copilots and autonomous workflow agents to computer vision and predictive data pipelines, we guide businesses through every phase of the AI Development Life Cycle (AI DLC).\n\nWe ensure enterprise-grade security, data privacy, and measurable business ROI.',
+        'Yes. Webkorps builds AI-powered product experiences, AI copilots, workflow automation, recommendation systems, and intelligent enterprise tooling. We help teams identify the right AI use case, architecture, and rollout plan for measurable business outcomes.',
       actions: [
-        { label: 'View AI Innovations', href: '#ai-innovation', variant: 'primary' },
-        { label: 'Book AI Consultation', href: '#contact', variant: 'secondary' },
-      ],
+        { label: 'View AI Innovation', href: '#ai-innovation', variant: 'primary' },
+        { label: 'Book AI Consultation', href: '#contact', variant: 'secondary' }
+      ]
     };
   }
 
-  // 3. Technology selection
   if (
-    normalized.includes('which technology') ||
-    normalized.includes('technology') ||
-    normalized.includes('tech stack') ||
-    normalized.includes('framework') ||
-    normalized.includes('right for my project')
+    normalized.includes('healthcare') ||
+    normalized.includes('fintech') ||
+    normalized.includes('logistics') ||
+    normalized.includes('education') ||
+    normalized.includes('retail') ||
+    normalized.includes('industry') ||
+    normalized.includes('vertical')
   ) {
     return {
       text:
-        'The ideal technology depends on your target users, scale, and performance needs:\n\n• For Modern Web Platforms: Next.js, React, Node.js, and TypeScript offer maximum agility and SEO speed.\n• For Mobile: Native Swift/Kotlin or high-velocity Flutter/React Native architectures.\n• For Cloud & Big Data: AWS, Azure, Google Cloud, and Kubernetes for resilient autoscaling.\n\nTell me more about your system requirements, and I can give you a tailored recommendation.',
+        'Webkorps works across healthcare, fintech, logistics, education, enterprise SaaS, and digital commerce. We design domain-aware engineering systems with the right mix of compliance, scalability, product UX, and operational workflows.',
       actions: [
-        { label: 'Explore Integrations', href: '#integrations', variant: 'primary' },
-        { label: 'Speak with an Architect', href: '#contact', variant: 'secondary' },
-      ],
+        { label: 'Explore Industries', href: '#industries', variant: 'primary' },
+        { label: 'Talk to an Expert', href: '#contact', variant: 'secondary' }
+      ]
     };
   }
 
-  // 4. Project cost & pricing
+  if (
+    normalized.includes('technology') ||
+    normalized.includes('tech stack') ||
+    normalized.includes('framework') ||
+    normalized.includes('stack') ||
+    normalized.includes('which technology')
+  ) {
+    return {
+      text:
+        'Webkorps typically builds with modern enterprise stacks including React, Next.js, TypeScript, Node.js, cloud-native services, APIs, and data platforms. The exact stack depends on performance, security, product complexity, and integration requirements.',
+      actions: [
+        { label: 'Explore Integrations', href: '#integrations', variant: 'primary' },
+        { label: 'Speak with an Architect', href: '#contact', variant: 'secondary' }
+      ]
+    };
+  }
+
   if (
     normalized.includes('cost') ||
     normalized.includes('price') ||
     normalized.includes('pricing') ||
     normalized.includes('budget') ||
-    normalized.includes('how much')
+    normalized.includes('quote') ||
+    normalized.includes('how much') ||
+    normalized.includes('estimate')
   ) {
     return {
       text:
-        'Project costs depend on your scope, technical complexity, custom integrations, security compliances (e.g., HIPAA, ISO 27001), and delivery timeline.\n\nWebkorps offers flexible collaboration models including Dedicated Engineering Squads, Fixed-Scope Milestones, and Time & Materials.\n\nWe can provide a detailed estimation and roadmap after a quick technical scoping session.',
+        'Project cost depends on scope, architecture, team size, compliance needs, and delivery timeline. Webkorps offers flexible engagement models for dedicated squads, product engineering, and consulting. The fastest path is to share your goals and we can propose a solution fit and budget range.',
       actions: [
         { label: 'Request a Quote', href: '#contact', variant: 'primary' },
-        { label: 'View Case Studies', href: '#case-studies', variant: 'secondary' },
-      ],
+        { label: 'View Case Studies', href: '#case-studies', variant: 'secondary' }
+      ]
     };
   }
 
-  // 5. Mobile App Development
+  if (
+    normalized.includes('contact') ||
+    normalized.includes('talk to someone') ||
+    normalized.includes('schedule') ||
+    normalized.includes('book a call') ||
+    normalized.includes('hire') ||
+    normalized.includes('consultation') ||
+    normalized.includes('sales') ||
+    normalized.includes('team')
+  ) {
+    return {
+      text:
+        'You can reach Webkorps through the contact form on this page, email us at contact@webkorps.com, or book a discovery call with our engineering team. We usually begin with a short requirement review and technical scoping conversation.',
+      actions: [
+        { label: 'Contact Webkorps', href: '#contact', variant: 'primary' },
+        { label: 'Email Us', href: 'mailto:contact@webkorps.com', variant: 'secondary' }
+      ]
+    };
+  }
+
+  if (
+    normalized.includes('certification') ||
+    normalized.includes('iso') ||
+    normalized.includes('quality') ||
+    normalized.includes('security') ||
+    normalized.includes('compliance')
+  ) {
+    return {
+      text:
+        'Webkorps is aligned with enterprise quality and security expectations including ISO/IEC 27001, ISO 9001:2015, and CMMI Level 3. This matters for regulated, high-trust product environments and large-scale digital transformation programs.',
+      actions: [
+        { label: 'See Our Credentials', href: '#about', variant: 'primary' },
+        { label: 'Talk to Us', href: '#contact', variant: 'secondary' }
+      ]
+    };
+  }
+
   if (
     normalized.includes('mobile') ||
     normalized.includes('app') ||
@@ -91,92 +179,37 @@ export function mockAiResponse(userMessage: string): AiResponseResult {
   ) {
     return {
       text:
-        'Webkorps builds robust, high-performance mobile applications across iOS, Android, and cross-platform frameworks. We craft seamless UI/UX, offline-first data sync, biometric authentication, and enterprise backend integrations.',
+        'Webkorps builds high-performing mobile applications for iOS, Android, and cross-platform environments. We design for performance, user trust, system integrations, and long-term product scalability.',
       actions: [
-        { label: 'See Mobile Work', href: '#services', variant: 'primary' },
-        { label: 'Schedule Scoping Call', href: '#contact', variant: 'secondary' },
-      ],
+        { label: 'Mobile Services', href: '#services', variant: 'primary' },
+        { label: 'Start a Project', href: '#contact', variant: 'secondary' }
+      ]
     };
   }
 
-  // 6. Web Development
   if (
     normalized.includes('website') ||
     normalized.includes('web development') ||
     normalized.includes('web app') ||
-    normalized.includes('frontend') ||
-    normalized.includes('portal')
+    normalized.includes('portal') ||
+    normalized.includes('frontend')
   ) {
     return {
       text:
-        'Our web engineering team develops mission-critical web applications, high-converting digital portals, and complex SaaS platforms designed for ultra-low latency, full accessibility (WCAG 2.2 AA), and modern search engine optimization.',
+        'Webkorps designs and builds web platforms, portals, SaaS products, and high-conversion user experiences. We focus on product architecture, performance, SEO, accessibility, business workflows, and resilient backend integrations.',
       actions: [
-        { label: 'Explore Web Services', href: '#services', variant: 'primary' },
-        { label: 'View Case Studies', href: '#case-studies', variant: 'secondary' },
-      ],
+        { label: 'Web Development', href: '#services', variant: 'primary' },
+        { label: 'Discuss Requirements', href: '#contact', variant: 'secondary' }
+      ]
     };
   }
 
-  // 7. E-Commerce
-  if (
-    normalized.includes('ecommerce') ||
-    normalized.includes('e-commerce') ||
-    normalized.includes('online store') ||
-    normalized.includes('shop')
-  ) {
-    return {
-      text:
-        'We engineer scalable omnichannel e-commerce experiences with headless commerce architectures, secure checkout flows, inventory ERP synchronization, and customized customer loyalty portals.',
-      actions: [
-        { label: 'Explore E-Commerce', href: '#services', variant: 'primary' },
-        { label: 'Get in Touch', href: '#contact', variant: 'secondary' },
-      ],
-    };
-  }
-
-  // 8. Cloud & DevOps
-  if (
-    normalized.includes('cloud') ||
-    normalized.includes('devops') ||
-    normalized.includes('aws') ||
-    normalized.includes('azure') ||
-    normalized.includes('kubernetes')
-  ) {
-    return {
-      text:
-        'Webkorps cloud architects design resilient, auto-scaling infrastructures across AWS, Google Cloud, and Microsoft Azure. We automate zero-downtime CI/CD pipelines, container orchestration, and multi-region failovers.',
-      actions: [
-        { label: 'Learn About Integrations', href: '#integrations', variant: 'primary' },
-        { label: 'Consult Cloud Expert', href: '#contact', variant: 'secondary' },
-      ],
-    };
-  }
-
-  // 9. Contact / Talk to someone
-  if (
-    normalized.includes('contact') ||
-    normalized.includes('talk to someone') ||
-    normalized.includes('sales') ||
-    normalized.includes('team') ||
-    normalized.includes('hire') ||
-    normalized.includes('call')
-  ) {
-    return {
-      text:
-        'Our engineering leaders and technology consultants are ready to discuss your product roadmap and architectural vision. You can share your project details, and our team will get back to you within 24 hours.',
-      actions: [
-        { label: 'Talk to Our Team', href: '#contact', variant: 'primary' },
-      ],
-    };
-  }
-
-  // 10. Helpful Generic Fallback
   return {
     text:
-      "I can help you explore Webkorps services, engineering technologies, industry verticals, project requirements, and AI-powered solutions.\n\nTell me what you're planning to build or what challenge your business is solving, and I'll guide you in the right direction.",
+      'I can help with Webkorps services, project scope, AI/ML solutions, technology selection, pricing, and discovery calls. For example, we support custom software, web/mobile products, cloud engineering, AI systems, and enterprise platform modernization. Tell me what you want to build and I’ll guide the right next step.',
     actions: [
       { label: 'Explore Services', href: '#services', variant: 'primary' },
-      { label: 'Talk to Our Team', href: '#contact', variant: 'secondary' },
-    ],
+      { label: 'Talk to Our Team', href: '#contact', variant: 'secondary' }
+    ]
   };
 }
