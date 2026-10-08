@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect } from 'react';
 import { Header } from '../../sections/home/Header/Header';
 import { Hero } from '../../sections/home/Hero/Hero';
@@ -18,6 +16,7 @@ import { FAQ } from '../../sections/home/FAQ/FAQ';
 import { Contact } from '../../sections/home/Contact/Contact';
 import { Footer } from '../../sections/home/Footer/Footer';
 import { BottomNavigation } from '../../components/BottomNavigation';
+import { ChatWidget } from '../../components/ChatWidget/ChatWidget';
 import { updateSEOMetadata } from '../../lib/seo/meta';
 import { getOrganizationSchema, getWebSiteSchema } from '../../lib/structured-data/schema';
 import './HomePage.css';
@@ -36,7 +35,6 @@ export const HomePage: React.FC = () => {
 
   return (
     <>
-      {/* Schema.org Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: orgSchema }}
@@ -46,15 +44,12 @@ export const HomePage: React.FC = () => {
         dangerouslySetInnerHTML={{ __html: websiteSchema }}
       />
 
-      {/* Accessible skip link for keyboard & screen reader navigation */}
       <a href="#main-content" className="skip-to-content">
         Skip to main content
       </a>
 
-      {/* Global Header Navigation */}
       <Header />
 
-      {/* Primary Main Content */}
       <main id="main-content" tabIndex={-1}>
         <Hero />
         <LeadingBrands />
@@ -72,10 +67,9 @@ export const HomePage: React.FC = () => {
         <Contact />
       </main>
 
-      {/* Global Footer */}
       <Footer />
 
-      {/* Floating Bottom Navigation & Expandable Mega-Menu */}
+      <ChatWidget />
       <BottomNavigation />
     </>
   );

@@ -83,7 +83,7 @@ export class LlmProviderManager {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: process.env.LOCAL_LLM_MODEL || 'llama3.1:8b-instruct',
+            model: ENV.LOCAL_LLM_MODEL || 'llama3.1:8b-instruct',
             messages: [
               { role: 'system', content: systemPrompt },
               { role: 'user', content: userPrompt }
