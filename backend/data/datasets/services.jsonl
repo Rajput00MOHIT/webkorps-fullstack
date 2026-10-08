@@ -1,0 +1,4 @@
+{"service":"Custom Software Development","url":"https://www.webkorps.com/custom-software-development","tier":1}
+{"service":"Mobile App Development","tech":["Flutter","React Native","iOS","Android"],"tier":1}
+{"service":"Enterprise Cloud & DevOps","tech":["AWS","GCP","Docker","Kubernetes"],"tier":1}
+{"service":"AI & Machine Learning Development","capabilities":["LLM Fine-Tuning","RAG Pipelines"],"tier":1}

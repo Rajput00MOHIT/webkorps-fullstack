@@ -1,0 +1,363 @@
+/**
+ * Webkorps Section 10 — Trusted OEM Partners. Proven Technology
+ * Source of Truth: Figma Node 1753-7030
+ * Continuous, Staggered, Independent Orbital Ecosystem Animation
+ */
+
+.wk-oem {
+  position: relative;
+  background-color: var(--color-bg-canvas, #FFFFFF);
+  padding-top: clamp(3.5rem, 5.5vw, 5.5rem);
+  padding-bottom: clamp(1rem, 2vw, 2.5rem);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Section Header
+   ========================================================================== */
+
+.wk-oem__header {
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto clamp(2.5rem, 4vw, 4rem) auto;
+  padding: 0 1.25rem;
+}
+
+.wk-oem__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0;
+}
+
+.wk-oem__title-accent {
+  color: var(--color-brand-primary, #1887C9);
+}
+
+/* ==========================================================================
+   Orbital Stage Container
+   ========================================================================== */
+
+.wk-oem__stage {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  height: clamp(380px, 44vw, 620px);
+  margin: 0 auto;
+  overflow: hidden;
+  user-select: none;
+
+  /* Responsive Orbital Geometric Radii Variables */
+  --stage-r: clamp(260px, 35vw, 560px);
+  --r-outer: calc(var(--stage-r) * 0.95);
+  --r-middle: calc(var(--stage-r) * 0.78);
+  --r-inner: calc(var(--stage-r) * 0.61);
+  --r-dome: calc(var(--stage-r) * 0.38);
+
+  /* Responsive Badge Scaling */
+  --badge-scale: 1;
+}
+
+/* Pause animation smoothly on hover */
+.wk-oem__stage:hover .wk-oem__track,
+.wk-oem__stage:hover .wk-oem__badge {
+  animation-play-state: paused;
+}
+
+/* ==========================================================================
+   SVG Background Concentric Arcs
+   ========================================================================== */
+
+.wk-oem__bg-arcs {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Orbital System Container
+   ========================================================================== */
+
+.wk-oem__orbit-system {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Individual Orbital Track Arm: Pivots at (50%, 100%) */
+.wk-oem__track {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  pointer-events: none;
+  will-change: transform;
+  animation: wk-track-orbit var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+/* Radius Arm: Translates out along radial vector by orbit radius */
+.wk-oem__arm {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform: translateX(var(--orbit-r));
+  pointer-events: none;
+}
+
+/* Circular Partner Logo Badge Container */
+.wk-oem__badge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: center center;
+  width: calc(var(--base-size, 116px) * var(--badge-scale, 1));
+  height: calc(var(--base-size, 116px) * var(--badge-scale, 1));
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.75);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: pointer;
+  will-change: transform, scale, opacity;
+  padding: 8px;
+  box-sizing: border-box;
+  animation: wk-badge-counter var(--duration) linear infinite,
+             wk-badge-depth var(--duration) linear infinite;
+  animation-delay: var(--delay), var(--delay);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* Interactive Badge Hover & Focus */
+.wk-oem__badge:hover {
+  border-color: #BFDBFE;
+  box-shadow: 0 12px 30px rgba(24, 135, 201, 0.25), 0 2px 6px rgba(15, 23, 42, 0.08);
+  filter: brightness(1.02);
+  z-index: 50 !important;
+}
+
+.wk-oem__badge:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 3px;
+}
+
+/* Partner Logo Image inside Badge */
+.wk-oem__logo {
+  max-width: 78%;
+  max-height: 60%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+}
+
+/* Custom logo sizing adjustments per aspect ratio to match Figma exactly */
+.wk-oem__badge--fortinet .wk-oem__logo,
+.wk-oem__badge--hpe-juniper .wk-oem__logo,
+.wk-oem__badge--cloudsek .wk-oem__logo {
+  max-width: 82%;
+  max-height: 50%;
+}
+
+.wk-oem__badge--trellix .wk-oem__logo,
+.wk-oem__badge--adobe .wk-oem__logo {
+  max-width: 80%;
+  max-height: 52%;
+}
+
+.wk-oem__badge--salesforce .wk-oem__logo,
+.wk-oem__badge--aws .wk-oem__logo,
+.wk-oem__badge--cisco .wk-oem__logo {
+  max-width: 74%;
+  max-height: 64%;
+}
+
+/* Special Case: Salesforce Cloud Badge */
+.wk-oem__badge--salesforce {
+  border-color: rgba(0, 161, 224, 0.2);
+}
+
+/* ==========================================================================
+   Central Webkorps Anchor (Stationary, Non-Rotating Centerpiece)
+   ========================================================================== */
+
+.wk-oem__center-anchor {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(14px, 2.2vw, 32px);
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.wk-oem__center-logo {
+  width: clamp(130px, 15vw, 210px);
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Continuous 360° Orbital Keyframe Animations (GPU Accelerated)
+   
+   Pure Linear Complementary Rotations:
+   - Track rotates -180deg -> +180deg (Clockwise in screen space)
+   - Badge counter-rotates +180deg -> -180deg
+   Because both animations are purely linear with identical start/end keys,
+   angle(track) + angle(badge) === 0.00deg at EVERY millisecond!
+   The logo remains 100% horizontally level and upright with zero tilt.
+   ========================================================================== */
+
+@keyframes wk-track-orbit {
+  0% {
+    transform: rotate(-180deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes wk-badge-counter {
+  0% {
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-180deg);
+  }
+}
+
+/* Depth, Scale, and Staggered Horizon Fade Modulation */
+@keyframes wk-badge-depth {
+  /* Left Horizon Entry: Smoothly emerges onto the path */
+  0% {
+    opacity: 0;
+    scale: 1.04;
+    z-index: 8;
+  }
+  3% {
+    opacity: 1;
+    scale: 1.02;
+    z-index: 8;
+  }
+  /* Rising toward Zenith */
+  25% {
+    opacity: 1;
+    scale: 0.94;
+    z-index: 5;
+  }
+  /* Descending toward Right Horizon */
+  47% {
+    opacity: 1;
+    scale: 1.02;
+    z-index: 8;
+  }
+  /* Right Horizon Exit: Fades out smoothly as it crosses below horizon */
+  50% {
+    opacity: 0;
+    scale: 1.04;
+    z-index: 8;
+  }
+  /* Return Path Underneath: Silent travel back to Left Horizon outside viewport */
+  50.1% {
+    opacity: 0;
+    scale: 1.04;
+    pointer-events: none;
+    z-index: 1;
+  }
+  99.9% {
+    opacity: 0;
+    scale: 1.04;
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* Seamless Mathematical Loop */
+  100% {
+    opacity: 0;
+    scale: 1.04;
+    z-index: 8;
+  }
+}
+
+/* ==========================================================================
+   Accessibility: Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-oem__track,
+  .wk-oem__badge {
+    animation: none !important;
+  }
+
+  .wk-oem__track {
+    transform: rotate(var(--static-angle)) !important;
+  }
+
+  .wk-oem__badge {
+    transform: translate(-50%, -50%) rotate(calc(-1 * var(--static-angle))) !important;
+    scale: 1 !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ==========================================================================
+   Mobile & Tablet Responsiveness
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .wk-oem__stage {
+    --badge-scale: 0.88;
+  }
+}
+
+@media (max-width: 768px) {
+  .wk-oem {
+    padding-top: 3rem;
+  }
+
+  .wk-oem__header {
+    margin-bottom: 2rem;
+  }
+
+  .wk-oem__stage {
+    height: clamp(340px, 78vw, 440px);
+    --stage-r: clamp(210px, 44vw, 320px);
+    --badge-scale: 0.75;
+  }
+}
+
+@media (max-width: 480px) {
+  .wk-oem__stage {
+    height: 320px;
+    --stage-r: 195px;
+    --badge-scale: 0.65;
+  }
+
+  .wk-oem__center-logo {
+    width: 120px;
+  }
+}

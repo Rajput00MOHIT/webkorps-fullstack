@@ -1,0 +1,433 @@
+/**
+ * Webkorps Section 12 — Insights / Blog Carousel
+ * Source of Truth: Figma Node 942-1926
+ * Two-card Desktop Viewport, Touch-Swipeable Track, Real-time Progress Bar & Nav Controls
+ */
+
+.wk-insights {
+  position: relative;
+  background-color: var(--color-bg-canvas, #FFFFFF);
+  padding-top: clamp(2.5rem, 4.5vw, 4.5rem);
+  padding-bottom: clamp(3.5rem, 5.5vw, 5.5rem);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Header: Title & View All Action
+   ========================================================================== */
+
+.wk-insights__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-bottom: clamp(2rem, 3.2vw, 3rem);
+}
+
+.wk-insights__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-insights.is-visible .wk-insights__title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-insights__title-accent {
+  color: var(--color-brand-primary, #1887C9);
+}
+
+.wk-insights__action {
+  flex-shrink: 0;
+  padding-bottom: 0.35rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  will-change: opacity, transform;
+}
+
+.wk-insights.is-visible .wk-insights__action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-insights__view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-family-heading);
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  font-weight: 700;
+  color: var(--color-brand-primary, #1887C9);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.wk-insights__view-all:hover {
+  color: #1272ab;
+  transform: translateX(3px);
+}
+
+.wk-insights__view-all:focus-visible {
+  outline: 2px solid #1887C9;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.wk-insights__view-all-chevron {
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Carousel Viewport & Track
+   ========================================================================== */
+
+.wk-blog-carousel {
+  position: relative;
+  width: 100%;
+}
+
+.wk-blog-carousel__viewport {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  outline: none;
+}
+
+.wk-blog-carousel__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.wk-blog-carousel__track {
+  display: flex;
+  gap: clamp(1.25rem, 1.8vw, 1.75rem);
+  padding: 0.25rem 0.25rem 0.75rem 0.25rem;
+}
+
+/* Slide item */
+.wk-blog-carousel__slide {
+  flex: 0 0 calc((100% - clamp(1.25rem, 1.8vw, 1.75rem)) / 2);
+  min-width: 0;
+  scroll-snap-align: start;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-insights.is-visible .wk-blog-carousel__slide {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Blog Card
+   ========================================================================== */
+
+.wk-blog-card {
+  position: relative;
+  display: flex;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: clamp(18px, 2vw, 24px);
+  padding: clamp(1.75rem, 2.5vw, 2.5rem);
+  min-height: clamp(340px, 26vw, 380px);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.wk-blog-card:hover {
+  border-color: #BFDBFE;
+  box-shadow: 0 12px 30px rgba(24, 135, 201, 0.09), 0 2px 6px rgba(15, 23, 42, 0.04);
+  transform: translateY(-2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-blog-card:hover .wk-blog-card__img {
+    transform: scale(1.02);
+  }
+}
+
+/* Card Content: Text & CTA on the Left */
+.wk-blog-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 62%;
+}
+
+/* Combined Date + Category Pill */
+.wk-blog-card__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: #EDF6FD;
+  border: 1px solid rgba(24, 135, 201, 0.16);
+  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-family-sans);
+  font-size: clamp(0.75rem, 0.85vw, 0.825rem);
+  font-weight: 600;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.wk-blog-card__date {
+  color: #334155;
+}
+
+.wk-blog-card__category {
+  color: #1887C9;
+  font-weight: 700;
+}
+
+/* Article Title */
+.wk-blog-card__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.2rem, 1.45vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary, #0F172A);
+  margin: clamp(1.1rem, 1.5vw, 1.5rem) 0 clamp(1.35rem, 1.8vw, 1.85rem) 0;
+}
+
+.wk-blog-card__action {
+  margin-top: auto;
+}
+
+/* Primary Read Blog Button */
+.wk-blog-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: var(--color-brand-primary, #1887C9);
+  color: #FFFFFF;
+  font-family: var(--font-family-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  padding: 0.65rem 1.35rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(24, 135, 201, 0.28);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.wk-blog-card__btn:hover {
+  background-color: #005789;
+  transform: translateY(-2px);
+  color: #FFFFFF;
+  box-shadow: 0 8px 20px rgba(24, 136, 201, 0.078);
+}
+
+.wk-blog-card__btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.wk-blog-card__btn-icon {
+  transition: transform 0.2s ease;
+}
+
+.wk-blog-card__btn:hover .wk-blog-card__btn-icon {
+  transform: translate(2px, -2px);
+}
+
+/* Card Artwork: Positioned at Bottom Right */
+.wk-blog-card__media {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 58%;
+  height: 85%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wk-blog-card__img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  user-select: none;
+  transition: transform 0.4s ease;
+}
+
+.wk-blog-card:hover .wk-blog-card__img {
+  transform: scale(1.03) translate(-2px, -2px);
+}
+
+/* ==========================================================================
+   Carousel Footer: Progress Bar & Controls
+   ========================================================================== */
+
+.wk-blog-carousel__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: clamp(1.75rem, 2.5vw, 2.75rem);
+}
+
+/* Horizontal Progress Track */
+.wk-blog-carousel__progress-bar {
+  flex: 1;
+  height: 3px;
+  background-color: #CBD5E1;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.wk-blog-carousel__progress-fill {
+  height: 100%;
+  background-color: var(--color-brand-primary, #1887C9);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* Previous / Next Arrow Controls */
+.wk-blog-carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.wk-blog-carousel__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid #E2E8F0;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  color: #0F172A;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.wk-blog-carousel__nav-btn:hover:not(:disabled) {
+  background-color: #F8FAFC;
+  border-color: #1887C9;
+  color: #1887C9;
+  transform: scale(1.05);
+}
+
+.wk-blog-carousel__nav-btn:focus-visible {
+  outline: 2px solid #1887C9;
+  outline-offset: 3px;
+}
+
+.wk-blog-carousel__nav-btn:disabled {
+  color: #94A3B8;
+  border-color: #F1F5F9;
+  background-color: #F8FAFC;
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .wk-blog-carousel__slide {
+    flex: 0 0 clamp(320px, 75%, 480px);
+  }
+
+  .wk-blog-card__content {
+    max-width: 68%;
+  }
+
+  .wk-blog-card__media {
+    width: 50%;
+    height: 75%;
+  }
+}
+
+@media (max-width: 640px) {
+  .wk-insights__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .wk-insights__title {
+    font-size: 2rem;
+  }
+
+  .wk-blog-carousel__slide {
+    flex: 0 0 90vw;
+  }
+
+  .wk-blog-card {
+    padding: 1.5rem;
+    min-height: 330px;
+  }
+
+  .wk-blog-card__content {
+    max-width: 100%;
+  }
+
+  .wk-blog-card__media {
+    opacity: 0.25;
+    width: 65%;
+    height: 70%;
+  }
+
+  .wk-blog-card__title {
+    font-size: 1.15rem;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .wk-blog-carousel__viewport {
+    scroll-behavior: auto;
+  }
+
+  .wk-blog-card,
+  .wk-blog-card__btn,
+  .wk-blog-card__img,
+  .wk-blog-carousel__progress-fill,
+  .wk-blog-carousel__nav-btn {
+    transition: none !important;
+  }
+
+  .wk-blog-card:hover {
+    transform: none !important;
+  }
+
+  .wk-blog-card:hover .wk-blog-card__img {
+    transform: none !important;
+  }
+}

@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build outputs
+.next/
+*/.next/
+dist/
+*/dist/
+build/
+*/build/
+out/
+*/out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+*/.env
+*/.env.local
+
+# Database clusters & binary storage
+data/corp_talk_pg/
+*/data/corp_talk_pg/
+*.pg
+*.wal
+
+# Large datasets (>50MB)
+*.jsonl.gz
+data/training/massive_1M_answered_dataset.jsonl
+data/training/massive_100k_training_dataset.jsonl
+*/data/training/massive_1M_answered_dataset.jsonl
+*/data/training/massive_100k_training_dataset.jsonl
+
+# Logs
+logs/
+*/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+server.log
+
+# OS / Editor files
+.DS_Store
+*/.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp

@@ -1,0 +1,70 @@
+.wk-foundation-ready {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) 0;
+  background: radial-gradient(circle at top right, rgba(0, 102, 255, 0.04) 0%, transparent 60%),
+              radial-gradient(circle at bottom left, rgba(0, 194, 255, 0.04) 0%, transparent 60%),
+              var(--color-bg-canvas);
+}
+
+.wk-foundation-card-wrapper {
+  margin: 0 auto;
+}
+
+.wk-foundation-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.wk-foundation-title {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-heading);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.wk-foundation-desc {
+  font-size: var(--font-size-body);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-8);
+}
+
+.wk-foundation-specs {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+@media (min-width: 640px) {
+  .wk-foundation-specs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.wk-spec-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.wk-spec-label {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--color-text-muted);
+}
+
+.wk-spec-val {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,433 @@
+/**
+ * Section 06: Industry-Focused Solutions
+ * Aesthetics: Light clean aesthetic with soft ice-blue tint cards,
+ * interactive 3D illustration reveal on hover/focus, and horizontal carousel track.
+ */
+
+.wk-industries {
+  padding-top: var(--section-pad-y);
+  padding-bottom: var(--section-pad-y);
+  background-color: var(--color-bg-canvas);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.wk-industries__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-industries.is-visible .wk-industries__header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-industries__title {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: clamp(2rem, 3.2vw + 0.5rem, 2.75rem);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.wk-industries__title-accent {
+  color: #1887C9;
+}
+
+.wk-industries__view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-semibold);
+  color: #1887C9;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.wk-industries__view-all:hover {
+  color: var(--color-brand-primary-hover);
+  transform: translateX(2px);
+}
+
+.wk-industries__view-all:focus-visible {
+  outline: 2px solid #1887C9;
+  outline-offset: 3px;
+}
+
+.wk-industries__view-all-chevrons {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.wk-chevron-icon {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.5;
+}
+
+.wk-chevron-icon--overlap {
+  position: absolute;
+  left: 6px;
+}
+
+/* ==========================================================================
+   CARDS CONTAINER / CAROUSEL
+   ========================================================================== */
+
+.wk-industries__grid {
+  display: flex;
+  gap: clamp(1.25rem, 2vw, 1.875rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 8px 4px 20px 4px;
+  position: relative;
+  outline: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.wk-industries__grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================================================
+   INDUSTRY CARD
+   ========================================================================== */
+
+.wk-industry-card {
+  position: relative;
+  background-color: #F8FBFE;
+  border: 1px solid #EDF3F8;
+  border-radius: 20px;
+  min-height: 440px;
+  flex: 0 0 clamp(320px, calc((100% - 2 * 1.875rem) / 3), 390px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.02);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color var(--transition-base);
+  outline: none;
+  cursor: pointer;
+  will-change: opacity, transform;
+}
+
+.wk-industries.is-visible .wk-industry-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-industries.is-visible .wk-industry-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -12px rgba(0, 102, 255, 0.12);
+    border-color: #D6E8FA;
+  }
+
+  .wk-industry-card:hover .wk-industry-card__art {
+    transform: scale(1.02);
+  }
+
+  .wk-industry-card:hover .wk-industry-card__arrow {
+    transform: translateX(3px);
+  }
+}
+
+.wk-industry-card.is-active {
+  box-shadow: 0 16px 36px -12px rgba(0, 102, 255, 0.12);
+  border-color: #D6E8FA;
+}
+
+.wk-industry-card:focus-visible {
+  outline: 2px solid #1887C9;
+  outline-offset: 4px;
+}
+
+.wk-industry-card__body {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.75rem, 2.5vw, 2.35rem);
+}
+
+.wk-industry-card__heading {
+  margin: 0 0 0.875rem 0;
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.4rem, 1.75vw, 1.65rem);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-snug);
+}
+
+.wk-industry-card__description {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #475569;
+  max-width: 260px;
+}
+
+.wk-industry-card__action {
+  margin-top: 2.5rem;
+}
+
+.wk-industry-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-family-sans);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-semibold);
+  color: #1887C9;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.wk-industry-card__arrow {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+  transition: transform var(--transition-fast);
+}
+
+.wk-industry-card:hover .wk-industry-card__arrow,
+.wk-industry-card:focus-within .wk-industry-card__arrow,
+.wk-industry-card.is-active .wk-industry-card__arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   DYNAMIC 3D ARTWORK (REVEALS ON HOVER / FOCUS)
+   ========================================================================== */
+
+.wk-industry-card__art-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 65%;
+  height: 85%;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-radius: 0 0 20px 0;
+}
+
+.wk-industry-card__art {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  transition:
+    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.wk-industry-card:hover .wk-industry-card__art,
+.wk-industry-card:focus-within .wk-industry-card__art,
+.wk-industry-card.is-active .wk-industry-card__art {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==========================================================================
+   CAROUSEL BOTTOM TRACK & CONTROLS
+   ========================================================================== */
+
+.wk-industries__footer {
+  margin-top: clamp(2rem, 3.2vw, 2.75rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.wk-industries__track {
+  flex: 1;
+  height: 3px;
+  background-color: #E2E8F0;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wk-industries__track-bar {
+  height: 100%;
+  background-color: #1887C9;
+  border-radius: 999px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wk-industries__nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wk-industries__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #0F172A;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.wk-industries__nav-btn:hover:not(:disabled) {
+  color: #1887C9;
+  background-color: rgba(0, 102, 255, 0.06);
+  transform: scale(1.08);
+}
+
+.wk-industries__nav-btn:focus-visible {
+  outline: 2px solid #1887C9;
+  outline-offset: 2px;
+}
+
+.wk-industries__nav-btn--disabled {
+  color: #CBD5E1;
+  cursor: default;
+  pointer-events: none;
+}
+
+.wk-industries__nav-icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet (1024px and down) */
+@media (max-width: 1024px) {
+  .wk-industries__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1rem;
+    padding-bottom: 0.75rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .wk-industries__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wk-industry-card {
+    flex: 0 0 340px;
+    scroll-snap-align: start;
+    min-height: 420px;
+  }
+
+  /* On touch/tablet devices, subtle artwork visibility provides instant context */
+  .wk-industry-card__art {
+    opacity: 0.45;
+    transform: translateY(0) scale(1);
+  }
+
+  .wk-industry-card:hover .wk-industry-card__art,
+  .wk-industry-card:focus-within .wk-industry-card__art {
+    opacity: 1;
+  }
+}
+
+/* Mobile (640px and down) */
+@media (max-width: 640px) {
+  .wk-industries__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .wk-industry-card {
+    flex: 0 0 85vw;
+    min-height: 390px;
+  }
+
+  .wk-industry-card__art-wrap {
+    width: 68%;
+    height: 75%;
+  }
+
+  .wk-industry-card__art {
+    opacity: 0.55;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .wk-industry-card,
+  .wk-industry-card__art,
+  .wk-industry-card__arrow,
+  .wk-industries__track-bar,
+  .wk-industries__view-all {
+    transition: none !important;
+  }
+
+  .wk-industry-card:hover,
+  .wk-industry-card:focus-within {
+    transform: none !important;
+  }
+
+  .wk-industry-card__art {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

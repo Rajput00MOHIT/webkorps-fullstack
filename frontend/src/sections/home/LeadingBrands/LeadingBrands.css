@@ -1,0 +1,139 @@
+/**
+ * Webkorps Leading Brands Section Styles
+ * Source of Truth: Figma Node 1753-6940
+ */
+
+.wk-brands {
+  position: relative;
+  background-color: #FFFFFF;
+  padding-top: clamp(3rem, 5.5vw, 4.75rem);
+  padding-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.wk-brands__header {
+  text-align: center;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-brands.is-visible .wk-brands__header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-brands__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.45rem, 4.5vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+}
+
+.wk-brands__highlight {
+  color: var(--color-brand-primary);
+  font-weight: inherit;
+}
+
+/* Continuous Marquee Carousel */
+.wk-brands__marquee-wrapper {
+  max-width: 1200px;
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  padding: 8px 0;
+}
+
+.wk-brands__marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.5rem, 4vw, 4.5rem);
+  width: max-content;
+  animation: wkBrandsMarquee 32s linear infinite;
+  will-change: transform;
+}
+
+.wk-brands__marquee-wrapper:hover .wk-brands__marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes wkBrandsMarquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.wk-brands__logo-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  flex-shrink: 0;
+}
+
+.wk-brands__logo-image {
+  height: auto;
+  max-height: 140px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.72;
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-brands__logo-item:hover .wk-brands__logo-image {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-brands__header {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .wk-brands__marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .wk-brands__marquee-wrapper {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .wk-brands__logo-image {
+    transition: none !important;
+  }
+}
+
+/* Section Bottom Divider */
+.wk-brands__divider {
+  border: none;
+  border-top: 1px solid var(--color-border-subtle);
+  max-width: 1140px;
+  margin: clamp(2.75rem, 4.5vw, 3.75rem) auto 0;
+  width: 100%;
+}

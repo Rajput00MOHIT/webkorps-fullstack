@@ -1,0 +1,167 @@
+/**
+ * Webkorps AI-Powered Innovation Section Styles
+ * Source of Truth: Figma Node 1753-6940
+ */
+
+.wk-ai-innovation {
+  position: relative;
+  background-color: #FFFFFF;
+  padding-top: clamp(3.5rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3.5rem, 6.5vw, 6rem);
+}
+
+.wk-ai-innovation__header {
+  text-align: center;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-ai-innovation.is-visible .wk-ai-innovation__header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-ai-innovation__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.65rem, 5.5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+}
+
+.wk-ai-innovation__title-accent {
+  color: var(--color-brand-primary);
+  font-weight: inherit;
+}
+
+/* 2x2 Cards Grid */
+.wk-ai-innovation__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Individual AI Card */
+.wk-ai-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-default, #E2E8F0);
+  border-radius: var(--radius-xl, 16px);
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+  opacity: 0;
+  transform: scale(0.96) translateY(12px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  will-change: opacity, transform;
+}
+
+.wk-ai-innovation.is-visible .wk-ai-card {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-ai-innovation.is-visible .wk-ai-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(0, 102, 255, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
+    border-color: rgba(0, 102, 255, 0.25);
+  }
+
+  .wk-ai-card:hover .wk-ai-card__image {
+    transform: scale(1.02);
+  }
+}
+
+.wk-ai-card:focus-within {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}
+
+/* Visual Container */
+.wk-ai-card__visual {
+  width: 100%;
+  aspect-ratio: 661 / 391;
+  background-color: #F0F7FD;
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wk-ai-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+/* Content Area */
+.wk-ai-card__content {
+  margin-top: clamp(1.25rem, 1.8vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.wk-ai-card__heading {
+  font-family: var(--font-family-heading);
+  font-size: clamp(1.2rem, 1.6vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.015em;
+}
+
+.wk-ai-card__description {
+  font-family: var(--font-family-sans);
+  font-size: clamp(0.875rem, 1vw, 0.9375rem);
+  line-height: 1.55;
+  color: var(--color-text-secondary, #475569);
+  margin: 0;
+}
+
+/* Responsive Adaptation */
+@media (max-width: 900px) {
+  .wk-ai-innovation__grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 600px) {
+  .wk-ai-card {
+    padding: 1.25rem;
+  }
+
+  .wk-ai-innovation__grid {
+    gap: 1.5rem;
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .wk-ai-card {
+    transition: none;
+    transform: none !important;
+  }
+}

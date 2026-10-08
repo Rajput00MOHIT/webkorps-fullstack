@@ -1,0 +1,10 @@
+export { AIAssistantModal } from './AIAssistantModal';
+export { AIWelcome } from './AIWelcome';
+export { ChatWindow } from './ChatWindow';
+export { ChatMessage } from './ChatMessage';
+export { AIAvatar } from './AIAvatar';
+export { TypingIndicator } from './TypingIndicator';
+export { ExamplePrompts } from './ExamplePrompts';
+export { ChatInput } from './ChatInput';
+export { mockAiResponse } from './mockAiEngine';
+export * from './types';

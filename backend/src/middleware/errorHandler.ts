@@ -1,0 +1,16 @@
+import type { Request, Response, NextFunction } from 'express';
+
+export function errorHandler(err: any, req: Request, res: Response, next: NextFunction): void {
+  console.error('[Corp Talk API Error]', err);
+  
+  const status = err.status || err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+  
+  res.status(status).json({
+    error: {
+      message,
+      code: err.code || 'INTERNAL_ERROR',
+      ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+    }
+  });
+}

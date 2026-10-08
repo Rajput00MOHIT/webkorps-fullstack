@@ -1,0 +1,177 @@
+/**
+ * Webkorps Statistics Section Styles
+ * Source of Truth: Figma Node 1753-6940
+ */
+
+.wk-stats {
+  position: relative;
+  background-color: #FFFFFF;
+  padding-top: clamp(3.5rem, 6vw, 5.25rem);
+  padding-bottom: clamp(3.5rem, 6.5vw, 5.75rem);
+}
+
+.wk-stats__header {
+  text-align: center;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-stats.is-visible .wk-stats__header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-stats__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2rem, 3.6vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+}
+
+.wk-stats__title-accent {
+  color: var(--color-brand-primary);
+  font-weight: inherit;
+}
+
+/* Metrics Row / Card */
+.wk-stats__container {
+  position: relative;
+  max-width: 980px;
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-xl, 16px);
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+  padding: clamp(2.25rem, 3.5vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+  overflow: hidden;
+}
+
+/* Subtle Map Background */
+.wk-stats__map-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.wk-stats__item {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-4);
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(12px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, filter, transform;
+  cursor: default;
+}
+
+.wk-stats__item--visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-stats__item--visible:hover {
+    transform: translateY(-2px) scale(1.02);
+    transition: transform 0.25s ease;
+  }
+}
+
+.wk-stats__number {
+  font-family: var(--font-family-heading);
+  font-size: clamp(3.25rem, 6vw, 5.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-brand-primary);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+  transition: transform 0.25s ease;
+}
+
+.wk-stats__label {
+  font-family: var(--font-family-sans);
+  font-size: clamp(0.95rem, 1.2vw, 1.0625rem);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-3);
+  margin-bottom: 0;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Vertical Separator */
+.wk-stats__separator {
+  position: relative;
+  z-index: 1;
+  width: 1px;
+  height: 84px;
+  background-color: var(--color-border-default);
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease 0.3s;
+}
+
+.wk-stats.is-visible .wk-stats__separator {
+  opacity: 1;
+}
+
+/* Responsive Adaptation */
+@media (max-width: 680px) {
+  .wk-stats__container {
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .wk-stats__separator {
+    display: none;
+  }
+
+  .wk-stats__item {
+    padding: 0;
+    width: 100%;
+  }
+
+  .wk-stats__label {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-stats__item {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+

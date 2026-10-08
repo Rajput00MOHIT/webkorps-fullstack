@@ -1,0 +1,583 @@
+/**
+ * Webkorps Section 15 — Footer Stylesheet
+ * Source of Truth: Figma Node 1207-2502
+ * Four Layers: Final CTA & Contact Card, 5-Column Nav, 5-Column Offices, Bottom Legal Bar
+ */
+
+.wk-footer {
+  position: relative;
+  background-color: var(--color-bg-canvas, #FFFFFF);
+  border-top: 1px solid var(--color-border-default, #E2E8F0);
+  padding-top: clamp(3.5rem, 5vw, 5rem);
+  padding-bottom: calc(clamp(2rem, 3.5vw, 3rem) + 84px);
+}
+
+.wk-footer__wrapper {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Dividers
+   ========================================================================== */
+
+.wk-footer__divider {
+  border: none;
+  height: 1px;
+  background-color: var(--color-border-default, #E2E8F0);
+  margin: clamp(2.25rem, 3.5vw, 3.25rem) 0;
+}
+
+/* ==========================================================================
+   Layer 1: Top CTA & Contact/Social Card
+   ========================================================================== */
+
+.wk-footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4.5rem);
+}
+
+.wk-footer__cta-col {
+  max-width: 500px;
+}
+
+.wk-footer__cta-title {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0 0 0.65rem;
+}
+
+.wk-footer__cta-desc {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: clamp(0.925rem, 1.05vw, 1rem);
+  line-height: 1.55;
+  color: var(--color-text-muted, #64748B);
+  margin: 0 0 1.5rem;
+}
+
+.wk-footer__cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.wk-footer__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 1.65rem;
+  border-radius: 9999px;
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.25s ease;
+}
+
+.wk-footer__btn--outline {
+  border: 1px solid var(--color-brand-primary, #1887C9);
+  color: var(--color-brand-primary, #1887C9);
+  background-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-footer__btn--outline:hover {
+    background-color: #EBF3FF;
+    border-color: #1272ab;
+    color: #1272ab;
+    transform: translateY(-2px);
+  }
+}
+
+.wk-footer__btn--outline:active {
+  transform: translateY(0);
+}
+
+.wk-footer__btn--outline:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 2px;
+}
+
+.wk-footer__btn--primary {
+  background-color: var(--color-brand-primary, #1887C9);
+  color: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 14px rgba(24, 135, 201, 0.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-footer__btn--primary:hover {
+    background-color: var(--color-brand-primary-hover, #1272ab);
+    transform: translateY(-2px);
+    color: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(24, 135, 201, 0.3);
+  }
+}
+
+.wk-footer__btn--primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(24, 135, 201, 0.25);
+}
+
+.wk-footer__btn--primary:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 2px;
+}
+
+.wk-footer__btn-arrow {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-footer__btn--primary:hover .wk-footer__btn-arrow {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* Contact & Social Card */
+.wk-footer__card-col {
+  flex-shrink: 0;
+}
+
+.wk-footer__contact-card {
+  background-color: #F8FAFC;
+  border: 1px solid var(--color-border-default, #E2E8F0);
+  border-radius: var(--radius-xl, 16px);
+  padding: 1.5rem clamp(1.5rem, 2.5vw, 2.25rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.02);
+}
+
+.wk-footer__contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.wk-footer__quote-prompt {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #0F172A);
+  margin-bottom: 0.35rem;
+  line-height: 1.4;
+}
+
+.wk-footer__email-row {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  color: var(--color-text-primary, #0F172A);
+}
+
+.wk-footer__email-prefix {
+  font-weight: 600;
+  color: var(--color-text-primary, #0F172A);
+}
+
+.wk-footer__email-link {
+  color: var(--color-brand-primary, #1887C9);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.wk-footer__email-link:hover {
+  color: #1272ab;
+  text-decoration: underline;
+}
+
+.wk-footer__email-link:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 2px;
+}
+
+/* Social Block inside Card */
+.wk-footer__social-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.wk-footer__social-heading {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #0F172A);
+  margin-bottom: 0.5rem;
+}
+
+.wk-footer__social-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.wk-footer__social-link {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--color-brand-primary, #1887C9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand-primary, #1887C9);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wk-footer__social-link svg {
+  width: 17px;
+  height: 17px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wk-footer__social-link:hover {
+    background-color: var(--color-brand-primary, #1887C9);
+    color: #FFFFFF;
+    transform: translateY(-2px) scale(1.05);
+  }
+}
+
+.wk-footer__social-link:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Layer 2: 5-Column Navigation Grid
+   ========================================================================== */
+
+.wk-footer__nav-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+.wk-footer__nav-col {
+  padding: 0 clamp(1rem, 2vw, 1.75rem);
+}
+
+.wk-footer__nav-col:first-child {
+  padding-left: 0;
+}
+
+.wk-footer__nav-col:last-child {
+  padding-right: 0;
+}
+
+.wk-footer__nav-col--bordered {
+  border-right: 1px solid var(--color-border-default, #E2E8F0);
+}
+
+.wk-footer__nav-title {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0 0 1.25rem;
+}
+
+.wk-footer__nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.wk-footer__nav-link {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-text-muted, #64748B);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.wk-footer__nav-link:hover {
+  color: var(--color-brand-primary, #1887C9);
+}
+
+.wk-footer__nav-link:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Layer 3: 5-Column Office Locations
+   ========================================================================== */
+
+.wk-footer__locations-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.wk-footer__location-name {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0 0 0.65rem;
+}
+
+.wk-footer__address {
+  font-style: normal;
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--color-text-muted, #64748B);
+}
+
+.wk-footer__address-line {
+  display: inline;
+}
+
+/* ==========================================================================
+   Layer 4: Bottom Legal & Copyright Bar
+   ========================================================================== */
+
+.wk-footer__bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.wk-footer__copyright {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, #64748B);
+  margin: 0;
+}
+
+.wk-footer__legal-list {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.wk-footer__legal-link {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, #64748B);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.wk-footer__legal-link:hover {
+  color: var(--color-brand-primary, #1887C9);
+}
+
+.wk-footer__legal-link:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 2px;
+}
+
+.wk-footer__region-text {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted, #64748B);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .wk-footer__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .wk-footer__card-col {
+    width: 100%;
+  }
+
+  .wk-footer__contact-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .wk-footer__nav-grid {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 2rem;
+  }
+
+  .wk-footer__nav-col--bordered {
+    border-right: none;
+  }
+
+  .wk-footer__nav-col {
+    padding: 0 1rem;
+  }
+
+  .wk-footer__locations-grid {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .wk-footer__nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 2rem;
+  }
+
+  .wk-footer__locations-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.75rem;
+  }
+
+  .wk-footer__contact-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .wk-footer__bottom-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .wk-footer__legal-list {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wk-footer__nav-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1.75rem;
+  }
+
+  .wk-footer__locations-grid {
+    grid-template-columns: 1fr;
+    row-gap: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   Scroll Entrance Animations (GLOBAL SPEED MODE)
+   ========================================================================== */
+
+/* Top CTA Elements Reveal */
+.wk-footer__cta-title {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  will-change: opacity, transform;
+}
+
+.wk-footer__cta-desc {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  will-change: opacity, transform;
+}
+
+.wk-footer__cta-actions {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+  will-change: opacity, transform;
+}
+
+/* Contact Card Reveal: fade + translateY */
+.wk-footer__contact-card {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, box-shadow 0.2s ease;
+  will-change: opacity, transform;
+}
+
+/* Dividers */
+.wk-footer__divider {
+  opacity: 0;
+  transition: opacity 0.5s ease 0.3s;
+}
+
+/* Navigation Columns Reveal: subtle opacity reveal (not individual links) */
+.wk-footer__nav-col {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.35s;
+  will-change: opacity;
+}
+
+/* Locations Section Reveal: subtle fade reveal */
+.wk-footer__locations {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.45s;
+  will-change: opacity;
+}
+
+/* Legal Row Reveal: fade in after main footer content */
+.wk-footer__bottom {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.55s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
+  will-change: opacity, transform;
+}
+
+/* Visible States */
+.wk-footer.is-visible .wk-footer__cta-title,
+.wk-footer.is-visible .wk-footer__cta-desc,
+.wk-footer.is-visible .wk-footer__cta-actions,
+.wk-footer.is-visible .wk-footer__contact-card,
+.wk-footer.is-visible .wk-footer__bottom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-footer.is-visible .wk-footer__divider,
+.wk-footer.is-visible .wk-footer__nav-col,
+.wk-footer.is-visible .wk-footer__locations {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-footer__cta-title,
+  .wk-footer__cta-desc,
+  .wk-footer__cta-actions,
+  .wk-footer__contact-card,
+  .wk-footer__divider,
+  .wk-footer__nav-col,
+  .wk-footer__locations,
+  .wk-footer__bottom {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .wk-footer__btn,
+  .wk-footer__btn-arrow,
+  .wk-footer__social-link,
+  .wk-footer__nav-link,
+  .wk-footer__legal-link {
+    transition: none !important;
+    transform: none !important;
+  }
+}

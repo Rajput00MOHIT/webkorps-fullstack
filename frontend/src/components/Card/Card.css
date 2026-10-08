@@ -1,0 +1,59 @@
+.wk-card {
+  position: relative;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.wk-card--default {
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-card);
+}
+
+.wk-card--subtle {
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-border-subtle);
+}
+
+.wk-card--elevated {
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-subtle);
+}
+
+.wk-card--glass {
+  background-color: var(--color-surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Padding variants */
+.wk-card--pad-none {
+  padding: 0;
+}
+
+.wk-card--pad-sm {
+  padding: var(--space-4);
+}
+
+.wk-card--pad-md {
+  padding: var(--space-6);
+}
+
+.wk-card--pad-lg {
+  padding: var(--space-8);
+}
+
+/* Interactive hover */
+.wk-card--interactive {
+  cursor: pointer;
+}
+
+.wk-card--interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-card-hover-border);
+}

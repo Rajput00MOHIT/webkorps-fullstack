@@ -1,0 +1,184 @@
+/**
+ * Webkorps Global Stylesheet
+ * Integrates Design Tokens, CSS Reset, Accessibility & Motion Baseline
+ */
+
+@import './tokens.css';
+
+/* ==========================================================================
+   CSS RESET & BOX MODEL
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family-sans);
+  font-size: 16px;
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-canvas);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY BASE STYLES
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-extrabold);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-body);
+}
+
+p:not(:last-child) {
+  margin-bottom: var(--space-4);
+}
+
+a {
+  color: var(--color-brand-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-brand-primary-hover);
+}
+
+/* ==========================================================================
+   FORM & INTERACTIVE ELEMENT RESETS
+   ========================================================================== */
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+img, svg, picture, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & FOCUS MANAGEMENT (WCAG 2.2 AA)
+   ========================================================================== */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
+  border-radius: var(--radius-xs);
+}
+
+/* Skip to main content link for screen reader & keyboard navigation */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  background: var(--color-brand-primary);
+  color: var(--color-text-white);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-body-sm);
+  z-index: var(--z-modal);
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: var(--space-4);
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ==========================================================================
+   MOTION & ACCESSIBILITY GUARD
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

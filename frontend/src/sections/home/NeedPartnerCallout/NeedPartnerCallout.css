@@ -1,0 +1,261 @@
+/**
+ * Webkorps Section 11 — Need the Right Technology Partner?
+ * Source of Truth: Figma Node 942-1926
+ * Conversion-focused Callout with Device Mockup Composition
+ */
+
+.wk-tech-partner {
+  position: relative;
+  background-color: var(--color-bg-canvas, #FFFFFF);
+  padding-top: clamp(2rem, 4vw, 4rem);
+  padding-bottom: clamp(4rem, 6vw, 6.5rem);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Card Container
+   ========================================================================== */
+
+.wk-tech-partner__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4.5rem);
+  background: linear-gradient(135deg, #F0F7FD 0%, #FFFFFF 52%, #F4F9FD 100%);
+  border: 1px solid rgba(24, 135, 201, 0.16);
+  border-radius: clamp(24px, 3.2vw, 40px);
+  padding: clamp(.5rem, 1vw, 4.5rem) clamp(2rem, 4.5vw, 5rem);
+  box-shadow: 0 20px 50px -15px rgba(24, 135, 201, 0.08), 0 1px 3px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Left Column: Content & Action
+   ========================================================================== */
+
+.wk-tech-partner__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wk-tech-partner__title {
+  font-family: var(--font-family-heading);
+  font-size: clamp(2.35rem, 4.2vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-tech-partner.is-visible .wk-tech-partner__title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-tech-partner__title-accent {
+  color: var(--color-brand-primary, #1887C9);
+}
+
+.wk-tech-partner__subtitle {
+  font-family: var(--font-family-sans);
+  font-size: clamp(1.05rem, 1.25vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-text-secondary, #475569);
+  margin: clamp(1.25rem, 2vw, 1.75rem) 0 0 0;
+  max-width: 520px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  will-change: opacity, transform;
+}
+
+.wk-tech-partner.is-visible .wk-tech-partner__subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-tech-partner__action {
+  margin-top: clamp(1.75rem, 2.5vw, 2.5rem);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.24s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.24s;
+  will-change: opacity, transform;
+}
+
+.wk-tech-partner.is-visible .wk-tech-partner__action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Primary CTA Button */
+.wk-tech-partner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background-color: var(--color-brand-primary, #1887C9);
+  color: #FFFFFF;
+  font-family: var(--font-family-heading);
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  padding: 1rem 2.25rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 25px rgba(24, 135, 201, 0.32);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.wk-tech-partner__btn:hover {
+  background-color: #1274AF;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(24, 135, 201, 0.25);
+}
+
+.wk-tech-partner__btn:focus-visible {
+  outline: 3px solid #1887C9;
+  outline-offset: 4px;
+}
+
+.wk-tech-partner__btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.wk-tech-partner__btn-icon {
+  transition: transform 0.25s ease;
+}
+
+.wk-tech-partner__btn:hover .wk-tech-partner__btn-icon {
+  transform: translate(3px, -3px);
+}
+
+/* ==========================================================================
+   Right Column: Smartphone Mockup & Backdrop
+   ========================================================================== */
+
+.wk-tech-partner__phone-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  will-change: opacity, transform;
+}
+
+.wk-tech-partner.is-visible .wk-tech-partner__phone-wrapper {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wk-tech-partner__card:hover .wk-tech-partner__phone-wrapper {
+  transform: scale(1) translateY(-3px);
+}
+
+.wk-tech-partner__phone-img {
+  display: block;
+  max-height: clamp(340px, 34vw, 480px);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  user-select: none;
+  transition: transform 0.35s ease;
+}
+
+.wk-tech-partner__card:hover .wk-tech-partner__phone-img {
+  transform: scale(1.015);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .wk-tech-partner__card {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3rem;
+    padding: 3rem 2rem;
+  }
+
+  .wk-tech-partner__content {
+    align-items: center;
+  }
+
+  .wk-tech-partner__subtitle {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wk-tech-partner__visual {
+    min-height: 320px;
+  }
+
+  .wk-tech-partner__phone-img {
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 640px) {
+  .wk-tech-partner {
+    padding-top: 1.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .wk-tech-partner__card {
+    padding: 2.25rem 1.5rem;
+    border-radius: 24px;
+    gap: 2.25rem;
+  }
+
+  .wk-tech-partner__title {
+    font-size: 2.15rem;
+  }
+
+  .wk-tech-partner__subtitle {
+    font-size: 1rem;
+  }
+
+  .wk-tech-partner__btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 0.9rem 1.75rem;
+  }
+
+  .wk-tech-partner__visual {
+    min-height: 280px;
+  }
+
+  .wk-tech-partner__phone-img {
+    max-height: 300px;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+  .wk-tech-partner__btn,
+  .wk-tech-partner__btn-icon,
+  .wk-tech-partner__phone-wrapper {
+    transition: none !important;
+  }
+
+  .wk-tech-partner__card:hover .wk-tech-partner__phone-wrapper {
+    transform: none !important;
+  }
+}

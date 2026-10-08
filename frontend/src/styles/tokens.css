@@ -1,0 +1,216 @@
+/**
+ * Webkorps Design System Tokens
+ * Source of Truth: Figma Design & 2026 Modern B2B Technology Aesthetic
+ */
+
+:root {
+  /* ==========================================================================
+     COLOR TOKENS
+     ========================================================================== */
+
+  /* Brand Colors */
+  --color-brand-primary: #1887C9;
+  --color-brand-primary-hover: #0072b4;
+  --color-brand-primary-light: #EBF3FF;
+  --color-brand-primary-subtle: #F0F6FF;
+  --color-brand-secondary: #0B132B;
+  --color-brand-accent: #1887C9;
+
+  /* Backgrounds & Surfaces */
+  --color-bg-canvas: #FFFFFF;
+  --color-bg-subtle: #F8FAFC;
+  --color-bg-muted: #F1F5F9;
+  --color-surface-card: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+  --color-surface-glass: rgba(255, 255, 255, 0.85);
+
+  /* Text Colors */
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748B;
+  --color-text-light: #94A3B8;
+  --color-text-white: #FFFFFF;
+  --color-text-brand: #1887C9;
+
+  /* Borders */
+  --color-border-subtle: #EDF2F7;
+  --color-border-default: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+  --color-border-brand: #1887C9;
+
+  /* Status & Accents */
+  --color-success: #10B981;
+  --color-success-bg: #ECFDF5;
+  --color-warning: #F59E0B;
+  --color-warning-bg: #FFFBEB;
+  --color-error: #EF4444;
+  --color-error-bg: #FEF2F2;
+  --color-info: #0066FF;
+  --color-info-bg: #EFF6FF;
+
+  /* Interactive States */
+  --color-focus-ring: rgba(0, 102, 255, 0.4);
+  --color-card-hover-border: #BFDBFE;
+
+  /* ==========================================================================
+     TYPOGRAPHY TOKENS
+     ========================================================================== */
+
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-heading: 'Plus Jakarta Sans', var(--font-family-sans);
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Font Sizes */
+  --font-size-display: clamp(2.5rem, 5vw + 1rem, 4rem);
+  /* 40px - 64px */
+  --font-size-h1: clamp(2rem, 3.5vw + 0.5rem, 3.25rem);
+  /* 32px - 52px */
+  --font-size-h2: clamp(1.75rem, 2.5vw + 0.5rem, 2.5rem);
+  /* 28px - 40px */
+  --font-size-h3: clamp(1.35rem, 1.8vw + 0.5rem, 1.875rem);
+  /* 22px - 30px */
+  --font-size-h4: 1.25rem;
+  /* 20px */
+  --font-size-body-lg: 1.125rem;
+  /* 18px */
+  --font-size-body: 1rem;
+  /* 16px */
+  --font-size-body-sm: 0.875rem;
+  /* 14px */
+  --font-size-caption: 0.75rem;
+  /* 12px */
+  --font-size-badge: 0.8125rem;
+  /* 13px */
+
+  /* Line Heights */
+  --line-height-tight: 1.15;
+  --line-height-heading: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-body: 1.6;
+  --line-height-relaxed: 1.75;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-snug: -0.015em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+
+  /* ==========================================================================
+     SPACING SCALE TOKENS
+     ========================================================================== */
+
+  --space-0-5: 0.125rem;
+  /* 2px */
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-1-5: 0.375rem;
+  /* 6px */
+  --space-2: 0.5rem;
+  /* 8px */
+  --space-2-5: 0.625rem;
+  /* 10px */
+  --space-3: 0.75rem;
+  /* 12px */
+  --space-4: 1rem;
+  /* 16px */
+  --space-5: 1.25rem;
+  /* 20px */
+  --space-6: 1.5rem;
+  /* 24px */
+  --space-8: 2rem;
+  /* 32px */
+  --space-10: 2.5rem;
+  /* 40px */
+  --space-12: 3rem;
+  /* 48px */
+  --space-16: 4rem;
+  /* 64px */
+  --space-20: 5rem;
+  /* 80px */
+  --space-24: 6rem;
+  /* 96px */
+  --space-32: 8rem;
+  /* 128px */
+
+  /* Section Vertical Spacing */
+  --section-pad-y: clamp(3.5rem, 6vw, 6.5rem);
+  --section-header-gap: clamp(2rem, 3.5vw, 3.5rem);
+
+  /* ==========================================================================
+     CONTAINER & LAYOUT TOKENS
+     ========================================================================== */
+
+  --container-max-width: 1280px;
+  --container-wide-max: 1400px;
+  --container-narrow-max: 960px;
+
+  --container-pad-desktop: 2rem;
+  /* 32px */
+  --container-pad-tablet: 1.5rem;
+  /* 24px */
+  --container-pad-mobile: 1rem;
+  /* 16px */
+
+  /* Breakpoints Reference (used in media queries)
+     --bp-mobile: 430px;
+     --bp-tablet: 768px;
+     --bp-laptop: 1024px;
+     --bp-desktop: 1280px;
+     --bp-wide: 1440px;
+  */
+
+  /* ==========================================================================
+     RADIUS TOKENS
+     ========================================================================== */
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 9999px;
+
+  /* ==========================================================================
+     SHADOW & ELEVATION TOKENS
+     ========================================================================== */
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 4px 24px 0 rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 12px 32px 0 rgba(0, 102, 255, 0.12);
+  --shadow-dropdown: 0 10px 38px -10px rgba(22, 23, 24, 0.35), 0 10px 20px -15px rgba(22, 23, 24, 0.2);
+
+  /* ==========================================================================
+     TRANSITION & MOTION TOKENS
+     ========================================================================== */
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ==========================================================================
+     Z-INDEX SYSTEM
+     ========================================================================== */
+
+  --z-base: 1;
+  --z-card: 10;
+  --z-sticky: 100;
+  --z-header: 1000;
+  --z-modal-backdrop: 1100;
+  --z-modal: 1200;
+  --z-toast: 1300;
+}

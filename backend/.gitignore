@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+build/
+.next/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Local Database & Storage
+data/corp_talk_pg/
+*.pg
+*.wal
+
+# Large Generated Training Files (>50MB)
+data/training/massive_1M_answered_dataset.jsonl
+data/training/massive_100k_training_dataset.jsonl
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+server.log
+
+# System files
+.DS_Store
+*.swp

@@ -1,0 +1,3 @@
+{"client":"Cryoport","industry":"Logistics","outcome":"Cold-chain GPS telemetry platform","tech":["Node.js","PostgreSQL","PostGIS"],"source":"https://www.webkorps.com/case-study/cryoport"}
+{"client":"Cigna","industry":"Healthcare","outcome":"HIPAA-compliant telemedicine portal","tech":["React","WebRTC","FastAPI"],"source":"https://www.webkorps.com/case-study/cigna"}
+{"client":"PayPal","industry":"FinTech","outcome":"High-throughput payment routing microservices","tech":["Java","Kafka","Redis"],"source":"https://www.webkorps.com/case-study/paypal"}

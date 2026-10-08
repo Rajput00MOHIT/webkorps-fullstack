@@ -1,0 +1,204 @@
+{
+  "name": "Corp Talk - Dynamic Research & Refinement AI Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "corp-talk-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-webhook-in",
+      "name": "Webhook Ingestion",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Validate incoming payload\nconst body = $input.first().json.body || $input.first().json;\nconst organizationId = body.organizationId || '00000000-0000-0000-0000-000000000001';\nconst rawQuery = String(body.query || '').trim();\nconst conversationId = body.conversationId || `conv-${Date.now()}`;\nconst sessionId = body.sessionId || `session-${Date.now()}`;\nconst history = Array.isArray(body.history) ? body.history : [];\n\nif (!rawQuery) {\n  throw new Error('Query text is required.');\n}\n\nreturn [{\n  json: {\n    organizationId,\n    conversationId,\n    sessionId,\n    rawQuery,\n    history,\n    timestamp: new Date().toISOString(),\n    requestId: `req-${Date.now()}`\n  }\n}];"
+      },
+      "id": "node-payload-validator",
+      "name": "Payload & Context Validator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-haiku-20241022",
+        "options": {
+          "temperature": 0.1
+        },
+        "prompt": "=You are an expert Query Decomposer & Semantic Analyzer for Webkorps Corp Talk.\nThe user may ask unstructured, fuzzy, multi-turn, or Hinglish questions (users never ask fixed rigid questions).\n\nConversation History:\n{{ JSON.stringify($json.history) }}\n\nLatest User Query:\n\"{{ $json.rawQuery }}\"\n\nYour Goal:\n1. Resolve conversation context & pronoun references.\n2. Formulate 1-3 targeted search sub-queries to uncover comprehensive facts.\n3. Determine if the query is vague/advisory and requires clarifying questions.\n4. Detect language (english, hindi, hinglish) and scope (company, general, hybrid).\n\nRespond ONLY with valid JSON matching this schema:\n{\n  \"standalone_question\": \"...\",\n  \"search_subqueries\": [\"query 1\", \"query 2\"],\n  \"language\": \"english|hindi|hinglish\",\n  \"scope\": \"company|general|hybrid\",\n  \"needs_clarification\": false,\n  \"clarifying_questions\": [\"...\"]\n}"
+      },
+      "id": "node-query-refiner",
+      "name": "Query Refiner & Decomposer",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1,
+      "position": [540, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=-- Multi-source Hybrid Search with Reciprocal Rank Fusion (RRF)\nWITH vector_search AS (\n  SELECT id, content, entity_id, entity_type, (1 - (embedding <=> $queryEmbedding)) AS score, 1 AS tier\n  FROM knowledge_chunks\n  WHERE organization_id = '{{ $('node-payload-validator').first().json.organizationId }}'\n  ORDER BY embedding <=> $queryEmbedding\n  LIMIT 40\n),\nkeyword_search AS (\n  SELECT id, content, entity_id, entity_type, ts_rank_cd(to_tsvector('simple', content), plainto_tsquery('simple', '{{ $json.standalone_question }}')) AS score, 2 AS tier\n  FROM knowledge_chunks\n  WHERE organization_id = '{{ $('node-payload-validator').first().json.organizationId }}'\n    AND to_tsvector('simple', content) @@ plainto_tsquery('simple', '{{ $json.standalone_question }}')\n  LIMIT 40\n)\nSELECT id, content, entity_id, entity_type, MAX(score) as score\nFROM (\n  SELECT * FROM vector_search\n  UNION ALL\n  SELECT * FROM keyword_search\n) combined\nGROUP BY id, content, entity_id, entity_type\nORDER BY score DESC\nLIMIT 15;"
+      },
+      "id": "node-postgres-retriever",
+      "name": "Postgres Vector & BM25 Retriever",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [780, 200]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=-- Knowledge Graph & Entity Explorer\nSELECT e.id, e.name, e.entity_type, e.attributes, r.relation_type, target.name as related_entity\nFROM knowledge_entities e\nLEFT JOIN knowledge_relations r ON e.id = r.source_id\nLEFT JOIN knowledge_entities target ON r.target_id = target.id\nWHERE e.organization_id = '{{ $('node-payload-validator').first().json.organizationId }}'\n  AND (e.name ILIKE '%{{ $json.standalone_question }}%' OR e.attributes::text ILIKE '%{{ $json.standalone_question }}%')\nLIMIT 10;"
+      },
+      "id": "node-kg-retriever",
+      "name": "Knowledge Graph Explorer",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [780, 420]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Evidence Synthesizer & Reranker\nconst searchResults = $('node-postgres-retriever').all().map(i => i.json);\nconst kgResults = $('node-kg-retriever').all().map(i => i.json);\nconst analysis = $('node-query-refiner').first().json;\n\n// 1. Deduplicate & filter\nconst seen = new Set();\nconst evidencePack = [];\nlet sourceIndex = 1;\n\nfor (const row of searchResults) {\n  const key = (row.content || '').slice(0, 80).toLowerCase();\n  if (!seen.has(key) && row.content) {\n    seen.add(key);\n    evidencePack.push({\n      tag: `[S${sourceIndex}]`,\n      header: `[S${sourceIndex} | ${row.entity_type || 'CHUNK'} | /services]`,\n      text: row.content\n    });\n    sourceIndex++;\n  }\n}\n\nfor (const row of kgResults) {\n  const key = `kg-${row.name}`.toLowerCase();\n  if (!seen.has(key) && row.name) {\n    seen.add(key);\n    evidencePack.push({\n      tag: `[S${sourceIndex}]`,\n      header: `[S${sourceIndex} | ${row.entity_type} | ${row.name}]`,\n      text: `${row.name} (${row.entity_type}): ${JSON.stringify(row.attributes || {})}`\n    });\n    sourceIndex++;\n  }\n}\n\nconst formattedEvidence = evidencePack.map(e => `${e.header}\\n${e.text}`).join('\\n\\n');\n\nreturn [{\n  json: {\n    analysis,\n    evidenceText: formattedEvidence,\n    evidenceCount: evidencePack.length,\n    sources: evidencePack.map(e => ({ tag: e.tag, header: e.header }))\n  }\n}];"
+      },
+      "id": "node-evidence-synthesizer",
+      "name": "Evidence Synthesizer & Reranker",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1020, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "options": {
+          "temperature": 0.2
+        },
+        "prompt": "=You are Corp Talk, the AI assistant for Webkorps.\n\nSYSTEM INSTRUCTIONS:\n1. Answer the user's actual question directly in the first sentence.\n2. Company facts must be grounded strictly in EVIDENCE. Never invent clients, projects, or numbers.\n3. For general advisory questions, provide helpful structured guidance first, then ask 2-3 clarifying questions.\n4. If user asked in Hinglish, reply in natural conversational Hinglish.\n5. Cite Webkorps capabilities with [S1], [S2] tags.\n6. Never output raw JSON brackets, entity tags, or system placeholders.\n\nEVIDENCE PACK:\n{{ $json.evidenceText }}\n\nUSER QUESTION:\n\"{{ $('node-payload-validator').first().json.rawQuery }}\"\n\nSTANDALONE REFINED QUERY:\n\"{{ $json.analysis.standalone_question }}\""
+      },
+      "id": "node-answer-generator",
+      "name": "Empathetic Answer Generator",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1,
+      "position": [1260, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Grounding Verification & Output Sanitizer\nconst rawAnswer = $input.first().json.text || $input.first().json.response || '';\nconst evidenceText = $('node-evidence-synthesizer').first().json.evidenceText || '';\nconst rawQuery = $('node-payload-validator').first().json.rawQuery || '';\n\n// 1. Strip raw system tokens\nlet sanitized = rawAnswer\n  .replace(/\\[INDUSTRY\\]/g, '')\n  .replace(/\\[COMPANY\\]/g, '')\n  .replace(/\\[SERVICE\\]/g, '')\n  .replace(/\\[TECHNOLOGY\\]/g, '')\n  .trim();\n\n// 2. Build Suggested Actions\nconst actions = [\n  { label: 'Schedule Architecture Consultation', href: '#contact', variant: 'primary' },\n  { label: 'Explore Engineering Capabilities', href: '#services', variant: 'secondary' }\n];\n\nreturn [{\n  json: {\n    status: 'success',\n    answer: sanitized,\n    suggested_actions: actions,\n    sources: $('node-evidence-synthesizer').first().json.sources,\n    metadata: {\n      refined_query: $('node-query-refiner').first().json.standalone_question,\n      language: $('node-query-refiner').first().json.language,\n      evidence_chunks: $('node-evidence-synthesizer').first().json.evidenceCount,\n      processed_at: new Date().toISOString()\n    }\n  }\n}];"
+      },
+      "id": "node-verifier-sanitizer",
+      "name": "Safety & Format Sanitizer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1480, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}"
+      },
+      "id": "node-webhook-out",
+      "name": "Respond to User Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1700, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Ingestion": {
+      "main": [
+        [
+          {
+            "node": "Payload & Context Validator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Payload & Context Validator": {
+      "main": [
+        [
+          {
+            "node": "Query Refiner & Decomposer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Refiner & Decomposer": {
+      "main": [
+        [
+          {
+            "node": "Postgres Vector & BM25 Retriever",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Knowledge Graph Explorer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Vector & BM25 Retriever": {
+      "main": [
+        [
+          {
+            "node": "Evidence Synthesizer & Reranker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Knowledge Graph Explorer": {
+      "main": [
+        [
+          {
+            "node": "Evidence Synthesizer & Reranker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evidence Synthesizer & Reranker": {
+      "main": [
+        [
+          {
+            "node": "Empathetic Answer Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Empathetic Answer Generator": {
+      "main": [
+        [
+          {
+            "node": "Safety & Format Sanitizer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Safety & Format Sanitizer": {
+      "main": [
+        [
+          {
+            "node": "Respond to User Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

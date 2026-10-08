@@ -1,0 +1,115 @@
+{
+  "source": "Global IT Services Industry Standards & Architectural Knowledge Base",
+  "crawled_at": "2026-10-07T18:34:10Z",
+  "industry_overview": {
+    "sector": "Information Technology & Digital Engineering Services",
+    "core_imperatives_2026": [
+      "AI-Native Development & Autonomous Agents",
+      "Cloud-Native Distributed Microservices",
+      "Platform Engineering & Internal Developer Platforms (IDP)",
+      "DevSecOps & Zero-Trust Security Architecture",
+      "FinOps & Cloud Cost Optimization",
+      "Edge Computing & Real-Time Telemetry Streaming"
+    ]
+  },
+  "service_domains": [
+    {
+      "domain": "Enterprise Software Engineering",
+      "architectural_patterns": [
+        "Microservices Architecture (Domain-Driven Design)",
+        "Event-Driven Architecture (EDA via Apache Kafka / RabbitMQ)",
+        "CQRS & Event Sourcing (Command Query Responsibility Segregation)",
+        "Hexagonal / Clean Architecture (Decoupled business logic)"
+      ],
+      "stack_recommendations": {
+        "languages": ["TypeScript / Node.js", "Python", "Java (Spring Boot 3)", "Go", "Rust", "C# (.NET 8)"],
+        "databases": ["PostgreSQL (Relational + Vector)", "MongoDB (Document)", "Redis (In-Memory Cache)", "ClickHouse / Snowflake (Analytics)"]
+      }
+    },
+    {
+      "domain": "Modern Mobile Application Development",
+      "architectural_patterns": [
+        "Cross-Platform Hybrid-Native (Flutter / React Native)",
+        "Native Core (Swift for iOS, Kotlin for Android)",
+        "Offline-First Architecture (WatermelonDB / SQLite / PowerSync)",
+        "Real-Time WebSockets / WebRTC Live Streaming"
+      ],
+      "best_practices": [
+        "60fps smooth rendering and UI thread isolation",
+        "Biometric authentication (FaceID / Fingerprint)",
+        "Battery-efficient background GPS geolocation polling",
+        "Deep linking and universal app routing"
+      ]
+    },
+    {
+      "domain": "Cloud Infrastructure & Platform Engineering",
+      "architectural_patterns": [
+        "Kubernetes Multi-Cluster Orchestration (EKS, GKE, AKS)",
+        "Infrastructure as Code (Terraform, OpenTofu, Pulumi)",
+        "GitOps Deployment Workflows (ArgoCD, Flux)",
+        "Service Mesh & Ingress Routing (Istio, Envoy, Kong, Traefik)"
+      ],
+      "reliability_standards": [
+        "99.99% High Availability SLA targets",
+        "Multi-AZ automatic failover and load balancing",
+        "Disaster Recovery (RPO < 5 mins, RTO < 15 mins)",
+        "Zero-Downtime Blue-Green & Canary Rollouts"
+      ]
+    },
+    {
+      "domain": "AI & Agentic Systems Engineering",
+      "architectural_patterns": [
+        "Multi-Agent Orchestration (Autonomous Agent Systems)",
+        "Hybrid RAG Pipelines (Dense Vector Cosine + Sparse BM25 + Reciprocal Rank Fusion)",
+        "Knowledge Graph Embeddings & Graph RAG",
+        "Local SLM / LLM Serving (vLLM, Ollama, TensorRT-LLM)"
+      ],
+      "governance_and_eval": [
+        "Hallucination detection and ground-truth verification guardrails",
+        "PII redaction and confidential token filtering",
+        "Continuous Golden Evaluation Benchmarking (Recall@K, Faithfulness)"
+      ]
+    },
+    {
+      "domain": "Cybersecurity & DevSecOps",
+      "compliance_frameworks": [
+        "ISO/IEC 27001 (Information Security Management)",
+        "SOC 2 Type II (Security, Availability, Confidentiality)",
+        "HIPAA / HITECH (Healthcare Data Protection)",
+        "PCI-DSS v4.0 (Payment Card Industry Compliance)",
+        "GDPR / CCPA (Data Privacy Regulations)"
+      ],
+      "security_controls": [
+        "Shift-Left Security: SAST/DAST automated scans in CI/CD (SonarQube, Snyk, Trivy)",
+        "Zero-Trust Network Access (ZTNA) and mutual TLS (mTLS)",
+        "Role-Based Access Control (RBAC) and OAuth 2.0 / OpenID Connect"
+      ]
+    },
+    {
+      "domain": "Quality Assurance & Performance Engineering",
+      "testing_hierarchy": [
+        "Unit Testing (Jest, Vitest, JUnit 5) - Target >80% coverage",
+        "Integration & API Testing (Supertest, Postman, Pact Contract Testing)",
+        "End-to-End Automated UI Testing (Playwright, Cypress)",
+        "Stress & Performance Load Testing (K6, Locust, JMeter - 50k+ virtual users)"
+      ]
+    }
+  ],
+  "industry_delivery_models": [
+    {
+      "model": "Dedicated Agile Engineering Pods",
+      "structure": "1 Tech Lead + 3 Full-Stack Devs + 1 QA Automation Engineer + 0.5 DevOps Specialist",
+      "velocity_metric": "Two-week sprints, daily standups, sprint reviews, guaranteed story-point velocity"
+    },
+    {
+      "model": "Build-Operate-Transfer (BOT)",
+      "structure": "Setting up offshore dedicated development centers (ODC), scaling talent, and transferring operational assets",
+      "timeline": "Typically 12 to 24 month transition roadmap"
+    },
+    {
+      "model": "Staff Augmentation",
+      "structure": "Senior individual contributor (IC) deployment directly into client engineering teams",
+      "onboarding_sla": "Talent matching and interview clearance within 48 to 72 hours"
+    }
+  ]
+}

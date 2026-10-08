@@ -1,0 +1,53 @@
+/**
+ * Layout Utilities & Responsive Wrappers
+ */
+
+.site-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-pad-mobile);
+  padding-right: var(--container-pad-mobile);
+}
+
+@media (min-width: 768px) {
+  .site-container {
+    padding-left: var(--container-pad-tablet);
+    padding-right: var(--container-pad-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-container {
+    padding-left: var(--container-pad-desktop);
+    padding-right: var(--container-pad-desktop);
+  }
+}
+
+.site-container-narrow {
+  max-width: var(--container-narrow-max);
+}
+
+.site-container-wide {
+  max-width: var(--container-wide-max);
+}
+
+/* Section Wrapper Standard Spacing */
+.site-section {
+  padding-top: var(--section-pad-y);
+  padding-bottom: var(--section-pad-y);
+  position: relative;
+}
+
+.site-section-subtle {
+  background-color: var(--color-bg-subtle);
+}
+
+/* Gradient Text Accent Utility */
+.text-gradient-brand {
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #2563EB 60%, var(--color-brand-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

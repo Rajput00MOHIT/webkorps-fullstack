@@ -1,0 +1,403 @@
+/**
+ * Webkorps Section 14 — Contact / Lead Generation
+ * Source of Truth: Figma Node 1267-2517
+ * Two-Column Desktop: "Talk to Our Support Team" + 3D Map/Search Visual & Interactive Form Card
+ */
+
+.wk-contact {
+  position: relative;
+  background-color: var(--color-bg-canvas, #FFFFFF);
+  padding-top: clamp(3.5rem, 5.5vw, 6rem);
+  padding-bottom: clamp(4rem, 6.5vw, 7rem);
+}
+
+.wk-contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+  align-items: center;
+}
+
+/* ==========================================================================
+   Left Column: Heading & 3D Isometric Visual
+   ========================================================================== */
+
+.wk-contact__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.wk-contact__title {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.wk-contact.is-visible .wk-contact__title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wk-contact__title-accent {
+  color: var(--color-brand-primary, #1887C9);
+}
+
+.wk-contact__visual-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.wk-contact__visual-card {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  will-change: opacity, transform;
+}
+
+.wk-contact.is-visible .wk-contact__visual-card {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wk-contact__visual-img {
+  width: 100%;
+  height: auto;
+  max-width: 440px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 36px rgba(15, 23, 42, 0.08));
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Right Column: Form Card & Fields
+   ========================================================================== */
+
+.wk-contact__form-col {
+  width: 100%;
+}
+
+.wk-contact__card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-default, #E2E8F0);
+  border-radius: var(--radius-2xl, 24px);
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  will-change: opacity, transform;
+}
+
+.wk-contact.is-visible .wk-contact__card {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wk-contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.wk-contact__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.wk-contact__label {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary, #0F172A);
+  margin-bottom: 0.45rem;
+}
+
+.wk-contact__required {
+  color: #EF4444;
+  margin-left: 2px;
+}
+
+.wk-contact__input,
+.wk-contact__textarea {
+  width: 100%;
+  padding: 0.85rem 1.15rem;
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  color: var(--color-text-primary, #0F172A);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-default, #E2E8F0);
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wk-contact__input::placeholder,
+.wk-contact__textarea::placeholder {
+  color: #94A3B8;
+  font-size: 0.925rem;
+}
+
+.wk-contact__input:hover,
+.wk-contact__textarea:hover {
+  border-color: #CBD5E1;
+}
+
+.wk-contact__input:focus,
+.wk-contact__textarea:focus {
+  border-color: var(--color-brand-primary, #1887C9);
+  box-shadow: 0 0 0 3px rgba(24, 135, 201, 0.15);
+  outline: none;
+}
+
+.wk-contact__field--error .wk-contact__input,
+.wk-contact__field--error .wk-contact__textarea {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.wk-contact__error-msg {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.8125rem;
+  color: #EF4444;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.wk-contact__textarea {
+  resize: vertical;
+  min-height: 120px;
+  max-height: 260px;
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Submit Button
+   ========================================================================== */
+
+.wk-contact__submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: var(--color-brand-primary, #1887C9);
+  color: #FFFFFF;
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.9rem 1.75rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(24, 135, 201, 0.25);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 0.35rem;
+}
+
+.wk-contact__submit-btn:hover:not(:disabled) {
+  background-color: var(--color-brand-primary-hover, #1272ab);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(24, 135, 201, 0.35);
+}
+
+.wk-contact__submit-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.wk-contact__submit-btn:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 3px;
+}
+
+.wk-contact__submit-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.wk-contact__btn-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.wk-contact__submit-btn:hover:not(:disabled) .wk-contact__btn-arrow {
+  transform: translate(3px, -3px);
+}
+
+/* Spinner */
+.wk-contact__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: wk-contact-spin 0.6s linear infinite;
+}
+
+@keyframes wk-contact-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Alert Error */
+.wk-contact__alert-error {
+  padding: 0.75rem 1rem;
+  background-color: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  border-radius: 8px;
+  color: #B91C1C;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Success State
+   ========================================================================== */
+
+.wk-contact__success-banner {
+  padding: clamp(2.5rem, 4vw, 3.5rem) clamp(1rem, 2vw, 2rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wk-contact__success-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #ECFDF5;
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.wk-contact__success-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.wk-contact__success-title {
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-weight: 700;
+  color: var(--color-text-primary, #0F172A);
+  margin: 0 0 0.65rem;
+}
+
+.wk-contact__success-text {
+  font-family: var(--font-family-sans, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-muted, #64748B);
+  max-width: 440px;
+  margin: 0 0 1.75rem;
+}
+
+.wk-contact__reset-btn {
+  background: none;
+  border: 1px solid var(--color-brand-primary, #1887C9);
+  color: var(--color-brand-primary, #1887C9);
+  font-family: var(--font-family-heading, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.65rem 1.5rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.wk-contact__reset-btn:hover {
+  background-color: var(--color-brand-primary, #1887C9);
+  color: #FFFFFF;
+}
+
+.wk-contact__reset-btn:focus-visible {
+  outline: 2px solid var(--color-brand-primary, #1887C9);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .wk-contact__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .wk-contact__info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .wk-contact__title-break {
+    display: inline;
+  }
+
+  .wk-contact__visual-wrapper {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .wk-contact {
+    padding-top: clamp(2.5rem, 4vw, 3.5rem);
+    padding-bottom: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .wk-contact__title {
+    font-size: clamp(1.85rem, 6vw, 2.5rem);
+  }
+
+  .wk-contact__visual-card,
+  .wk-contact__visual-img {
+    max-width: 320px;
+  }
+
+  .wk-contact__card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .wk-contact__input,
+  .wk-contact__textarea,
+  .wk-contact__submit-btn,
+  .wk-contact__btn-arrow,
+  .wk-contact__reset-btn {
+    transition: none !important;
+  }
+
+  .wk-contact__spinner {
+    animation: none !important;
+  }
+}

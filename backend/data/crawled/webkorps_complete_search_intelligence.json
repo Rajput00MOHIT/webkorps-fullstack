@@ -1,0 +1,149 @@
+{
+  "source": "Search Engine Intelligence & Web Crawler Aggregation",
+  "crawled_at": "2026-10-07T18:34:00Z",
+  "company_profile": {
+    "legal_name": "Webkorps Services India Private Limited",
+    "brand_name": "Webkorps Technologies",
+    "founded_year": 2014,
+    "headcount": "400+ Senior Engineers & Specialists",
+    "certifications": ["ISO 27001 (Information Security)", "ISO 9001 (Quality Management)"],
+    "headquarters": "4th Floor, Winway World Offices, Vijay Nagar, Indore, Madhya Pradesh, India",
+    "global_offices": [
+      {
+        "city": "Indore",
+        "country": "India",
+        "type": "Global HQ & Engineering Hub",
+        "address": "Winway World Offices, Vijay Nagar, Indore, MP"
+      },
+      {
+        "city": "Pune",
+        "country": "India",
+        "type": "Engineering Center",
+        "address": "Magarpatta City, Pune, Maharashtra"
+      },
+      {
+        "city": "Bengaluru",
+        "country": "India",
+        "type": "Innovation & AI Hub",
+        "address": "Outer Ring Road, Bengaluru, Karnataka"
+      },
+      {
+        "city": "Sheridan",
+        "state": "Wyoming",
+        "country": "USA",
+        "type": "North America Client Solutions Hub",
+        "address": "30 N Gould St, Sheridan, WY 82801"
+      }
+    ],
+    "leadership": [
+      {
+        "name": "Chirag Agrawal",
+        "role": "Founder & Chief Executive Officer (CEO)",
+        "focus": "Global Enterprise Strategy, Technology Vision, Strategic Client Partnerships"
+      },
+      {
+        "name": "Amul Choudhary",
+        "role": "Co-Founder & Chief Operating Officer (COO)",
+        "focus": "Operational Governance, Engineering Scale, Delivery Excellence, Quality SLAs"
+      }
+    ]
+  },
+  "services": [
+    {
+      "name": "Custom Software Development",
+      "description": "Bespoke enterprise applications engineered from concept to deployment with microservices architecture and high-throughput databases.",
+      "technologies": ["Node.js", "Python", "Java", "Spring Boot", "FastAPI", "Go", "PostgreSQL", "MongoDB"]
+    },
+    {
+      "name": "Mobile Application Development",
+      "description": "Native-grade iOS, Android, and cross-platform mobile apps with real-time sync, offline-first storage, and hardware telemetry.",
+      "technologies": ["Flutter", "React Native", "Swift", "Kotlin", "PostGIS", "WebRTC"]
+    },
+    {
+      "name": "Cloud Engineering & DevOps",
+      "description": "Multi-cloud architecture, Infrastructure as Code (Terraform), container orchestration, and zero-downtime CI/CD automation.",
+      "technologies": ["AWS", "Google Cloud (GCP)", "Microsoft Azure", "Docker", "Kubernetes", "Terraform", "GitHub Actions"]
+    },
+    {
+      "name": "AI & Machine Learning Solutions",
+      "description": "Enterprise agentic AI workflows, Retrieval-Augmented Generation (RAG), predictive telemetry, and computer vision models.",
+      "technologies": ["LangChain", "LlamaIndex", "PyTorch", "TensorFlow", "FastAPI", "pgvector", "Hugging Face"]
+    },
+    {
+      "name": "UI/UX & Product Design",
+      "description": "User-centric interaction design, design systems, design sprint discovery, and accessibility compliance (WCAG).",
+      "technologies": ["Figma", "Design Tokens", "TailwindCSS", "Storybook", "Adobe XD"]
+    },
+    {
+      "name": "QA & Automated Testing",
+      "description": "Continuous automated integration testing, performance benchmarking, end-to-end test suites, and security scans.",
+      "technologies": ["Playwright", "Cypress", "Selenium", "JMeter", "Postman", "K6"]
+    },
+    {
+      "name": "Dedicated Agile Engineering Pods",
+      "description": "Pre-vetted autonomous pods consisting of Tech Leads, Full-Stack Engineers, QA, and DevOps specialists working in client timezones.",
+      "technologies": ["Agile/Scrum", "Jira", "Slack", "GitLab", "CI/CD"]
+    }
+  ],
+  "verified_case_studies": [
+    {
+      "client": "PayPal",
+      "industry": "FinTech & Payments",
+      "challenge": "High-volume payment gateway integration and distributed transaction reconciliation.",
+      "solution": "Built resilient microservices with Node.js, Redis cache layers, and ISO 27001 PCI-DSS compliant workflows."
+    },
+    {
+      "client": "Sonic Healthcare",
+      "industry": "Healthcare & Diagnostic Pathology",
+      "challenge": "Automated pathology diagnostic reporting and secure EHR patient data exchange.",
+      "solution": "Engineered HIPAA-compliant diagnostic portal with secure HL7/FHIR API integration."
+    },
+    {
+      "client": "Cryoport",
+      "industry": "Logistics & Cold-Chain Telemetry",
+      "challenge": "Real-time IoT cryogenic shipment tracking across global supply lines.",
+      "solution": "Developed GPS telemetry tracking platform using Flutter mobile apps, Node.js backend, and PostGIS geofencing."
+    },
+    {
+      "client": "Medhost",
+      "industry": "Healthcare IT",
+      "challenge": "Hospital workflow optimization and clinical data synchronization.",
+      "solution": "Integrated EHR interoperability modules with role-based access control and high-availability database replication."
+    },
+    {
+      "client": "ACIMA",
+      "industry": "FinTech / Retail POS",
+      "challenge": "Instant lease-to-own credit risk evaluation and POS point-of-sale integration.",
+      "solution": "Engineered real-time underwriting API microservices and React checkout widgets."
+    },
+    {
+      "client": "Verizon",
+      "industry": "Telecom & Enterprise HRMS",
+      "challenge": "Workforce automation and internal operational pipeline governance.",
+      "solution": "Delivered custom enterprise workflow automation with single sign-on (SSO) and auditing telemetry."
+    },
+    {
+      "client": "ABB",
+      "industry": "Industrial IoT & Automation",
+      "challenge": "Industrial device monitoring and real-time telemetry streaming.",
+      "solution": "Built cloud telemetry dashboards processing high-frequency sensor readings via Kafka and TimeScaleDB."
+    }
+  ],
+  "commercial_engagement_models": [
+    {
+      "model": "Dedicated Engineering Pods",
+      "description": "Full-time dedicated teams (Engineers, Architects, QA) billed on monthly cycles.",
+      "best_for": "Long-term scaling product teams and venture-funded startups."
+    },
+    {
+      "model": "Fixed-Price Milestone Delivery",
+      "description": "Guaranteed scope, budget, and delivery timeline with milestone-based payouts.",
+      "best_for": "Defined MVPs, platform revamps, and well-scoped architectural deliverables."
+    },
+    {
+      "model": "Time & Materials (T&M)",
+      "description": "Flexible hourly sprint allocation based on evolving sprint backlogs.",
+      "best_for": "R&D initiatives, specialized AI engineering, and technical advisory."
+    }
+  ]
+}
