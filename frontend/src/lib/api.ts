@@ -1,9 +1,9 @@
 /**
  * API client to connect the Webkorps frontend to the Corp Talk backend.
- * Provides resilient fallbacks so the UI remains 100% functional even if offline.
+ * Provides resilient fallbacks so the UI remains functional even if offline.
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || process.env.VITE_API_URL || '/api/v1';
 
 export interface ChatApiResponse {
   conversationId: string;

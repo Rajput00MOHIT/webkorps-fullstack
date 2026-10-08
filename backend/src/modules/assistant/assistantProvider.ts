@@ -45,27 +45,26 @@ export class ConfiguredAssistantProvider implements AssistantAIProvider {
   private apiKey?: string;
   private modelName: string;
 
-  constructor(name: string = 'openai', modelName: string = 'gpt-4o') {
+  constructor(name: string = 'local', modelName: string = 'llama3.1:8b-instruct') {
     this.name = name;
-    this.modelName = modelName;
-    this.apiKey = process.env.CONTENT_AI_API_KEY || process.env.OPENAI_API_KEY;
+    this.modelName = modelName || process.env.LOCAL_LLM_MODEL || 'llama3.1:8b-instruct';
+    this.apiKey = process.env.CONTENT_AI_API_KEY || process.env.OPENAI_API_KEY || '';
   }
 
   public async isAvailable(): Promise<boolean> {
-    return Boolean(this.apiKey);
+    return true;
   }
 
   public async generate(request: AssistantGenerationRequest): Promise<AssistantGenerationResponse> {
     const startTime = Date.now();
 
-    // Call live external LLM if configured
     if (this.apiKey) {
       try {
         const res = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.apiKey}`
+            Authorization: `Bearer ${this.apiKey}`
           },
           body: JSON.stringify({
             model: this.modelName,
@@ -84,19 +83,19 @@ export class ConfiguredAssistantProvider implements AssistantAIProvider {
 
         const data = (await res.json()) as any;
         const answer = data.choices?.[0]?.message?.content || '';
-        const latencyMs = Date.now() - startTime;
-
-        return {
-          answer,
-          provider: this.name,
-          model: this.modelName,
-          tokenUsage: {
-            promptTokens: data.usage?.prompt_tokens || 0,
-            completionTokens: data.usage?.completion_tokens || 0,
-            totalTokens: data.usage?.total_tokens || 0
-          },
-          latencyMs
-        };
+        if (answer.trim()) {
+          return {
+            answer,
+            provider: this.name,
+            model: this.modelName,
+            tokenUsage: {
+              promptTokens: data.usage?.prompt_tokens || 0,
+              completionTokens: data.usage?.completion_tokens || 0,
+              totalTokens: data.usage?.total_tokens || 0
+            },
+            latencyMs: Date.now() - startTime
+          };
+        }
       } catch (err: any) {
         if (!request.allowLocalFallback) {
           throw new AssistantProviderUnavailableError(`AI Assistant response failed: ${err.message}`);
@@ -104,7 +103,6 @@ export class ConfiguredAssistantProvider implements AssistantAIProvider {
       }
     }
 
-    // Grounded Generation via Unified AnswerGenerator (No raw JSON, no shortcut templates)
     const evidencePack = EvidencePackBuilder.build(request.evidence);
     const analysis = await QueryRewriter.analyze(request.query, []);
 
@@ -117,7 +115,7 @@ export class ConfiguredAssistantProvider implements AssistantAIProvider {
 
     return {
       answer: genOutput.answer,
-      provider: 'unified_answer_generator',
+      provider: 'local_grounded_answer_generator',
       model: genOutput.model,
       tokenUsage: genOutput.tokenUsage,
       latencyMs: Date.now() - startTime
@@ -126,7 +124,7 @@ export class ConfiguredAssistantProvider implements AssistantAIProvider {
 }
 
 export class AssistantAIProviderFactory {
-  public static getProvider(name: string = 'openai'): AssistantAIProvider {
+  public static getProvider(name: string = 'local'): AssistantAIProvider {
     return new ConfiguredAssistantProvider(name);
   }
 }

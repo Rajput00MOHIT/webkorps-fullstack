@@ -1,11 +1,19 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+const parseList = (value?: string, fallback: string[] = []) => {
+  if (!value) return fallback;
+  return value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+};
+
 export const ENV = {
   PORT: parseInt(process.env.PORT || '4000', 10),
   NODE_ENV: process.env.NODE_ENV || 'development',
   API_PREFIX: process.env.API_PREFIX || '/api/v1',
-  CORS_ORIGIN: (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:5173').split(','),
+  CORS_ORIGIN: parseList(process.env.CORS_ORIGIN, ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000']),
 
   DATABASE_URL: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/corp_talk_db',
 
@@ -16,13 +24,14 @@ export const ENV = {
 
   LOCAL_OLLAMA_URL: process.env.LOCAL_OLLAMA_URL || 'http://localhost:11434',
   LOCAL_LLM_MODEL: process.env.LOCAL_LLM_MODEL || 'llama3.1:8b-instruct',
-  ASSISTANT_MODEL: process.env.ASSISTANT_MODEL || process.env.LOCAL_LLM_MODEL || 'llama3.1:8b-instruct',
   LOCAL_EMBEDDING_MODEL: process.env.LOCAL_EMBEDDING_MODEL || 'bge-small-en-v1.5',
 
-  SEARCH_PROVIDER: process.env.SEARCH_PROVIDER || 'duckduckgo',
+  SEARCH_PROVIDER: (process.env.SEARCH_PROVIDER || 'duckduckgo').toLowerCase(),
   SEARXNG_URL: process.env.SEARXNG_URL || 'http://localhost:8080',
 
+  ASSISTANT_PROVIDER: (process.env.ASSISTANT_PROVIDER || 'local').toLowerCase(),
   OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
   ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY || '',
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY || ''
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
+  CONTENT_AI_API_KEY: process.env.CONTENT_AI_API_KEY || '',
 };

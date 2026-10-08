@@ -1,5 +1,7 @@
 import { ENV } from '../../config/env.js';
 
+const isNonEmpty = (value?: string) => Boolean(value && value.trim().length > 0);
+
 export interface LlmGenerationOptions {
   temperature?: number;
   maxTokens?: number;
@@ -7,98 +9,126 @@ export interface LlmGenerationOptions {
 
 export class LlmProviderManager {
   /**
-   * Generates a response using the highest-priority configured LLM provider:
-   * 1. Gemini (if GEMINI_API_KEY)
-   * 2. OpenAI (if OPENAI_API_KEY)
-   * 3. Anthropic (if ANTHROPIC_API_KEY)
-   * 4. Ollama (if LOCAL_OLLAMA_URL is reachable)
-   * 5. Returns null if no external LLM is configured (delegates to dynamic local reasoner)
+   * Priority: Local Ollama first (free/local), then optional OpenAI/Gemini if configured.
+   * Returns null when no local or remote provider is configured.
    */
   public static async generate(
     systemPrompt: string,
     userPrompt: string,
     options: LlmGenerationOptions = {}
   ): Promise<string | null> {
-    // 1. Google Gemini
-    if (ENV.GEMINI_API_KEY && ENV.GEMINI_API_KEY.trim().length > 0) {
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${ENV.GEMINI_API_KEY.trim()}`;
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ parts: [{ text: userPrompt }] }],
-            generationConfig: {
+    if (!systemPrompt && !userPrompt) {
+      return null;
+    }
+
+    const providerMode = ENV.ASSISTANT_PROVIDER || 'local';
+    const localModel = ENV.LOCAL_LLM_MODEL || process.env.LOCAL_LLM_MODEL || 'llama3.1:8b-instruct';
+    const orderedProviders =
+      providerMode === 'openai'
+        ? ['openai']
+        : providerMode === 'gemini'
+          ? ['gemini']
+          : providerMode === 'anthropic'
+            ? ['anthropic']
+            : ['local', 'openai', 'gemini'];
+
+    for (const provider of orderedProviders) {
+      if (provider === 'local') {
+        if (!ENV.LOCAL_OLLAMA_URL) continue;
+        try {
+          const response = await fetch(`${ENV.LOCAL_OLLAMA_URL.replace(/\/$/, '')}/api/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              model: localModel,
+              messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt }
+              ],
+              stream: false,
+              options: {
+                temperature: options.temperature ?? 0.3,
+                num_predict: options.maxTokens ?? 1200
+              }
+            }),
+            signal: AbortSignal.timeout(15000)
+          });
+
+          if (!response.ok) continue;
+
+          const data: any = await response.json();
+          const text = data?.message?.content || data?.content?.[0]?.text;
+          if (text && typeof text === 'string' && text.trim().length > 0) {
+            return text.trim();
+          }
+        } catch {
+          // Local model not running; continue to other providers.
+        }
+      }
+
+      if (provider === 'openai') {
+        if (!isNonEmpty(ENV.OPENAI_API_KEY)) continue;
+        try {
+          const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${ENV.OPENAI_API_KEY.trim()}`
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt }
+              ],
               temperature: options.temperature ?? 0.3,
-              maxOutputTokens: options.maxTokens ?? 1200
-            }
-          }),
-          signal: AbortSignal.timeout(10000)
-        });
-        if (res.ok) {
-          const data: any = await res.json();
-          const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (text) return text.trim();
-        }
-      } catch (e) {
-        console.warn('[LlmProvider] Gemini call failed, trying next provider:', e);
-      }
-    }
+              max_tokens: options.maxTokens ?? 1200
+            }),
+            signal: AbortSignal.timeout(10000)
+          });
 
-    // 2. OpenAI
-    if (ENV.OPENAI_API_KEY && ENV.OPENAI_API_KEY.trim().length > 0) {
-      try {
-        const res = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${ENV.OPENAI_API_KEY.trim()}`
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o-mini',
-            messages: [
-              { role: 'system', content: systemPrompt },
-              { role: 'user', content: userPrompt }
-            ],
-            temperature: options.temperature ?? 0.3,
-            max_tokens: options.maxTokens ?? 1200
-          }),
-          signal: AbortSignal.timeout(10000)
-        });
-        if (res.ok) {
-          const data: any = await res.json();
+          if (!response.ok) continue;
+
+          const data: any = await response.json();
           const text = data?.choices?.[0]?.message?.content;
-          if (text) return text.trim();
+          if (text && text.trim().length > 0) {
+            return text.trim();
+          }
+        } catch {
+          // OpenAI unavailable; continue to next configured provider.
         }
-      } catch (e) {
-        console.warn('[LlmProvider] OpenAI call failed:', e);
       }
-    }
 
-    // 3. Local Ollama
-    if (ENV.LOCAL_OLLAMA_URL) {
-      try {
-        const res = await fetch(`${ENV.LOCAL_OLLAMA_URL}/api/chat`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: ENV.LOCAL_LLM_MODEL || 'llama3.1:8b-instruct',
-            messages: [
-              { role: 'system', content: systemPrompt },
-              { role: 'user', content: userPrompt }
-            ],
-            stream: false
-          }),
-          signal: AbortSignal.timeout(15000)
-        });
-        if (res.ok) {
-          const data: any = await res.json();
-          const text = data?.message?.content;
-          if (text) return text.trim();
+      if (provider === 'gemini') {
+        if (!isNonEmpty(ENV.GEMINI_API_KEY)) continue;
+        try {
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${ENV.GEMINI_API_KEY.trim()}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                contents: [{ parts: [{ text: userPrompt }] }],
+                generationConfig: {
+                  temperature: options.temperature ?? 0.3,
+                  maxOutputTokens: options.maxTokens ?? 1200
+                }
+              }),
+              signal: AbortSignal.timeout(10000)
+            }
+          );
+
+          if (!response.ok) continue;
+
+          const data: any = await response.json();
+          const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text && text.trim().length > 0) {
+            return text.trim();
+          }
+        } catch {
+          // Gemini unavailable; continue.
         }
-      } catch {
-        // Ollama not running
       }
     }
 
