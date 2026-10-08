@@ -13,26 +13,26 @@ function createLocalAssistantReply(question: string): string {
   const q = question.toLowerCase();
 
   if (/(pricing|cost|budget|quote|price|how much)/.test(q)) {
-    return 'Webkorps offers flexible engagement models for dedicated squads, product engineering, and consulting. The best fit depends on scope, timeline, and team access. You can request a quote through the contact form on this page or email contact@webkorps.com.';
+    return 'Webkorps offers flexible engagement models for dedicated squads, product engineering, and consulting. The best fit depends on scope, timeline, and team access. You can request a quote through the contact form or book a discovery call with our team.';
   }
 
   if (/(service|services|software|mobile|web|ai|ml|cloud|devops)/.test(q)) {
-    return 'Webkorps helps businesses with custom software, web and mobile app development, AI/ML engineering, cloud & DevOps, enterprise integrations, and digital transformation. If you share your product or business goal, I can suggest the best model.';
+    return 'Webkorps helps businesses with custom software, web and mobile app development, AI/ML engineering, cloud & DevOps, enterprise integrations, and digital transformation. If you share your project goals, we can suggest the right solution path.';
   }
 
   if (/(industry|healthcare|fintech|logistics|retail|education|supply)/.test(q)) {
-    return 'Webkorps works across healthcare, fintech, logistics, education, retail, and enterprise digital transformation. The right solution usually starts with understanding the business workflow, compliance needs, and user experience.';
+    return 'Webkorps works across healthcare, fintech, logistics, education, retail, and enterprise digital transformation. The right solution usually starts with understanding the business workflow, data, and growth goals.';
   }
 
   if (/(contact|talk|consult|schedule|book|call)/.test(q)) {
-    return 'You can connect with Webkorps through the contact form on this page, or contact the team directly at contact@webkorps.com. A discovery call is the fastest way to map your requirements to the right engineering model.';
+    return 'You can connect with Webkorps through the contact form on this page, or contact the team directly at contact@webkorps.com. A discovery call is the fastest way to map your requirements and recommend the right engagement model.';
   }
 
   if (/(who|what is webkorps|about webkorps)/.test(q)) {
-    return 'Webkorps is an enterprise digital engineering company focused on custom software, AI-driven product engineering, cloud systems, and digital growth. The team helps businesses move from idea to scalable delivery.';
+    return 'Webkorps is an enterprise digital engineering company focused on custom software, AI-driven product engineering, cloud systems, and digital growth. The team helps businesses move from idea to production with measurable impact.';
   }
 
-  return 'Webkorps helps companies design, build, and scale digital products, AI workflows, and enterprise engineering systems. Tell me your business challenge, target industry, or project goal and I can suggest the right approach.';
+  return 'Webkorps helps companies design, build, and scale digital products, AI workflows, and enterprise engineering systems. Tell me your business challenge, target industry, or project goal and I can guide the right path.';
 }
 
 export function ChatWidget() {
@@ -43,7 +43,7 @@ export function ChatWidget() {
     {
       id: 'welcome',
       role: 'assistant',
-      text: 'Hi! I can help with Webkorps services, pricing, product ideas, and the right engineering approach. Ask me anything.'
+      text: 'Hi! I can help with Webkorps services, pricing, project ideas, and the right engineering approach. Ask me anything.'
     }
   ]);
   const bottomRef = useRef<HTMLDivElement | null>(null);
@@ -69,7 +69,7 @@ export function ChatWidget() {
     setIsSending(true);
 
     try {
-      const response = await fetch('http://localhost:4000/api/v1/conversations/messages', {
+      const response = await fetch('/api/v1/conversations/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
